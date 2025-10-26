@@ -57,4 +57,4 @@ hs_err_pid*
 
 # Drawio
 *.bkp
-*.drawio
+resources/*.drawio
