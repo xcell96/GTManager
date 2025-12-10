@@ -22,6 +22,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "Households")
 public class Household {
@@ -32,7 +34,7 @@ public class Household {
     private String address;
 
     @Column(name = "surface")
-    private Double surface;
+    private BigDecimal surface;
 
 
     @Column(name = "cattle", nullable = false)
@@ -82,11 +84,11 @@ public class Household {
         this.address = address;
     }
 
-    public Double getSurface() {
+    public BigDecimal getSurface() {
         return surface;
     }
 
-    public void setSurface(Double surface) {
+    public void setSurface(BigDecimal surface) {
         this.surface = surface;
     }
 
