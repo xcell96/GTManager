@@ -17,122 +17,156 @@ package com.xcell.GTManager.model;
  * other_animals
  */
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Households")
 public class Household {
+    @Id @Column(name = "household_id")
     private Integer householdId;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "surface")
     private Double surface;
 
+
+    @Column(name = "cattle", nullable = false)
     private Integer cattle;
+
+    @Column(name = "swine", nullable = false)
     private Integer swine;
+
+    @Column(name = "sheep", nullable = false)
     private Integer sheep;
+
+    @Column(name = "goats", nullable = false)
     private Integer goats;
+
+    @Column(name = "equines", nullable = false)
     private Integer equines;
+
+    @Column(name = "poultry", nullable = false)
     private Integer poultry;
+
+    @Column(name = "rabbits", nullable = false)
     private Integer rabbits;
+
+    @Column(name = "donkeys", nullable = false)
     private Integer donkeys;
+
+    @Column(name = "bee_families", nullable = false)
     private Integer beeFamilies;
+
+    @Column(name = "other_animals", nullable = false)
     private Integer otherAnimals;
 
-    private Household(Builder b){
-        this.householdId = b.householdId;
-        this.address = b.address;
-        this.surface = b.surface;
-
-        this.cattle = b.cattle;
-        this.swine = b.swine;
-        this.sheep = b.sheep;
-        this.goats = b.goats;
-        this.equines = b.equines;
-        this.poultry = b.poultry;
-        this.rabbits = b.rabbits;
-        this.donkeys = b.donkeys;
-        this.beeFamilies = b.beeFamilies;
-        this.otherAnimals = b.otherAnimals;
-    }
 
     public Integer getHouseholdId() {
         return householdId;
+    }
+
+    public void setHouseholdId(Integer householdId) {
+        this.householdId = householdId;
     }
 
     public String getAddress() {
         return address;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Double getSurface() {
         return surface;
+    }
+
+    public void setSurface(Double surface) {
+        this.surface = surface;
     }
 
     public Integer getCattle() {
         return cattle;
     }
 
+    public void setCattle(Integer cattle) {
+        this.cattle = cattle;
+    }
+
     public Integer getSwine() {
         return swine;
+    }
+
+    public void setSwine(Integer swine) {
+        this.swine = swine;
     }
 
     public Integer getSheep() {
         return sheep;
     }
 
+    public void setSheep(Integer sheep) {
+        this.sheep = sheep;
+    }
+
     public Integer getGoats() {
         return goats;
+    }
+
+    public void setGoats(Integer goats) {
+        this.goats = goats;
     }
 
     public Integer getEquines() {
         return equines;
     }
 
+    public void setEquines(Integer equines) {
+        this.equines = equines;
+    }
+
     public Integer getPoultry() {
         return poultry;
+    }
+
+    public void setPoultry(Integer poultry) {
+        this.poultry = poultry;
     }
 
     public Integer getRabbits() {
         return rabbits;
     }
 
+    public void setRabbits(Integer rabbits) {
+        this.rabbits = rabbits;
+    }
+
     public Integer getDonkeys() {
         return donkeys;
+    }
+
+    public void setDonkeys(Integer donkeys) {
+        this.donkeys = donkeys;
     }
 
     public Integer getBeeFamilies() {
         return beeFamilies;
     }
 
+    public void setBeeFamilies(Integer beeFamilies) {
+        this.beeFamilies = beeFamilies;
+    }
+
     public Integer getOtherAnimals() {
         return otherAnimals;
     }
 
-    public static class Builder {
-        private Integer householdId;
-        private String address;
-        private Double surface;
-
-        private Integer cattle;
-        private Integer swine;
-        private Integer sheep;
-        private Integer goats;
-        private Integer equines;
-        private Integer poultry;
-        private Integer rabbits;
-        private Integer donkeys;
-        private Integer beeFamilies;
-        private Integer otherAnimals;
-
-        public Builder householdId(Integer householdId){ this.householdId = householdId; return this; }
-        public Builder address(String address){ this.address = address; return this; }
-        public Builder surface(Double surface){ this.surface = surface; return this; }
-
-        public Builder cattle(Integer cattle){ this.cattle = cattle; return this; }
-        public Builder swine(Integer swine){ this.swine = swine; return this; }
-        public Builder sheep(Integer sheep){ this.sheep = sheep; return this; }
-        public Builder goats(Integer goats){ this.goats = goats; return this; }
-        public Builder equines(Integer equines){ this.equines = equines; return this; }
-        public Builder poultry(Integer poultry){ this.poultry = poultry; return this; }
-        public Builder rabbits(Integer rabbits){ this.rabbits = rabbits; return this; }
-        public Builder donkeys(Integer donkeys){ this.donkeys = donkeys; return this; }
-        public Builder beeFamilies(Integer beeFamilies){ this.beeFamilies = beeFamilies; return this; }
-        public Builder otherAnimals(Integer otherAnimals){ this.otherAnimals = otherAnimals; return this; }
-
-        public Household build(){ return new Household(this); }
+    public void setOtherAnimals(Integer otherAnimals) {
+        this.otherAnimals = otherAnimals;
     }
 }
