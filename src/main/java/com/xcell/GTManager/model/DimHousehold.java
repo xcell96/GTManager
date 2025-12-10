@@ -64,4 +64,146 @@ public class DimHousehold {
         this.validFrom = validFrom;
     }
 
+    @PrePersist
+    public void beforeInsert(){
+        if(validFrom == null) validFrom = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void beforeUpdate(){
+        throw new UnsupportedOperationException("Do not update DimHousehold; insert new version instead.");
+    }
+
+    @PreRemove
+    public void beforeDelete(){
+        System.out.println("Deleting DimHousehold with id: " + householdSk);
+    }
+
+    public Integer getHouseholdSk() {
+        return householdSk;
+    }
+
+    public void setHouseholdSk(Integer householdSk) {
+        this.householdSk = householdSk;
+    }
+
+    public Integer getHouseholdId() {
+        return householdId;
+    }
+
+    public void setHouseholdId(Integer householdId) {
+        this.householdId = householdId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public BigDecimal getSurface() {
+        return surface;
+    }
+
+    public void setSurface(BigDecimal surface) {
+        this.surface = surface;
+    }
+
+    public Integer getCattle() {
+        return cattle;
+    }
+
+    public void setCattle(Integer cattle) {
+        this.cattle = cattle;
+    }
+
+    public Integer getSwine() {
+        return swine;
+    }
+
+    public void setSwine(Integer swine) {
+        this.swine = swine;
+    }
+
+    public Integer getSheep() {
+        return sheep;
+    }
+
+    public void setSheep(Integer sheep) {
+        this.sheep = sheep;
+    }
+
+    public Integer getGoats() {
+        return goats;
+    }
+
+    public void setGoats(Integer goats) {
+        this.goats = goats;
+    }
+
+    public Integer getEquines() {
+        return equines;
+    }
+
+    public void setEquines(Integer equines) {
+        this.equines = equines;
+    }
+
+    public Integer getPoultry() {
+        return poultry;
+    }
+
+    public void setPoultry(Integer poultry) {
+        this.poultry = poultry;
+    }
+
+    public Integer getRabbits() {
+        return rabbits;
+    }
+
+    public void setRabbits(Integer rabbits) {
+        this.rabbits = rabbits;
+    }
+
+    public Integer getDonkeys() {
+        return donkeys;
+    }
+
+    public void setDonkeys(Integer donkeys) {
+        this.donkeys = donkeys;
+    }
+
+    public Integer getBeeFamilies() {
+        return beeFamilies;
+    }
+
+    public void setBeeFamilies(Integer beeFamilies) {
+        this.beeFamilies = beeFamilies;
+    }
+
+    public Integer getOtherAnimals() {
+        return otherAnimals;
+    }
+
+    public void setOtherAnimals(Integer otherAnimals) {
+        this.otherAnimals = otherAnimals;
+    }
+
+    public LocalDateTime getValidFrom() {
+        return validFrom;
+    }
+
+    public void setValidFrom(LocalDateTime validFrom) {
+        this.validFrom = validFrom;
+    }
+
+    public LocalDateTime getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDateTime validTo) {
+        this.validTo = validTo;
+    }
 }
