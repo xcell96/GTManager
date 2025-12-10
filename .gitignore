@@ -83,3 +83,7 @@ hs_err_pid*
 # Drawio
 *.bkp
 resources/*.drawio
+
+# Environment
+.env
+*.env

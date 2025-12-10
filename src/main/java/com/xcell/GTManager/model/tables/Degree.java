@@ -1,4 +1,4 @@
-package com.xcell.GTManager.model;
+package com.xcell.GTManager.model.tables;
 
 import jakarta.persistence.*;
 
@@ -10,8 +10,9 @@ public class Degree {
     @Column(name = "degree_id")
     private Integer degreeId;
 
-    @Column(name = "person_id", nullable = false)
-    private Integer personId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -30,12 +31,12 @@ public class Degree {
         this.degreeId = degreeId;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public Person getPersonId() {
+        return person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPersonId(Person person) {
+        this.person = person;
     }
 
     public String getTitle() {

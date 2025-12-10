@@ -1,4 +1,4 @@
-package com.xcell.GTManager.model;
+package com.xcell.GTManager.model.tables;
 
 import jakarta.persistence.*;
 

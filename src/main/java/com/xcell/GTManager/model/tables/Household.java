@@ -1,4 +1,4 @@
-package com.xcell.GTManager.model;
+package com.xcell.GTManager.model.tables;
 
 /*
  * household_id
@@ -38,34 +38,34 @@ public class Household {
 
 
     @Column(name = "cattle", nullable = false)
-    private Integer cattle;
+    private Integer cattle = 0;
 
     @Column(name = "swine", nullable = false)
-    private Integer swine;
+    private Integer swine = 0;
 
     @Column(name = "sheep", nullable = false)
-    private Integer sheep;
+    private Integer sheep = 0;
 
     @Column(name = "goats", nullable = false)
-    private Integer goats;
+    private Integer goats = 0;
 
     @Column(name = "equines", nullable = false)
-    private Integer equines;
+    private Integer equines = 0;
 
     @Column(name = "poultry", nullable = false)
-    private Integer poultry;
+    private Integer poultry = 0;
 
     @Column(name = "rabbits", nullable = false)
-    private Integer rabbits;
+    private Integer rabbits = 0;
 
     @Column(name = "donkeys", nullable = false)
-    private Integer donkeys;
+    private Integer donkeys = 0;
 
     @Column(name = "bee_families", nullable = false)
-    private Integer beeFamilies;
+    private Integer beeFamilies = 0;
 
     @Column(name = "other_animals", nullable = false)
-    private Integer otherAnimals;
+    private Integer otherAnimals = 0;
 
 
     public Integer getHouseholdId() {

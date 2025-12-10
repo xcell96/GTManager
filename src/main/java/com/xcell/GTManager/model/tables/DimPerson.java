@@ -1,4 +1,4 @@
-package com.xcell.GTManager.model;
+package com.xcell.GTManager.model.tables;
 
 import com.xcell.GTManager.enums.EKinship;
 import com.xcell.GTManager.enums.ESex;
@@ -32,8 +32,8 @@ public class DimPerson {
 
     private String educationLevel;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Degree> degrees = new ArrayList<>();
+//    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Degree> degrees;
 
     private String job;
     private String placeOfWork;
@@ -160,13 +160,13 @@ public class DimPerson {
         this.educationLevel = educationLevel;
     }
 
-    public List<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(List<Degree> degrees) {
-        this.degrees = degrees;
-    }
+//    public List<Degree> getDegrees() {
+//        return degrees;
+//    }
+//
+//    public void setDegrees(List<Degree> degrees) {
+//        this.degrees = degrees;
+//    }
 
     public String getJob() {
         return job;

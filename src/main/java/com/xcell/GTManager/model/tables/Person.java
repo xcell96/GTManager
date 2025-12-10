@@ -1,4 +1,4 @@
-package com.xcell.GTManager.model;
+package com.xcell.GTManager.model.tables;
 
 /*
  * person_id
@@ -152,13 +152,13 @@ public class Person {
         this.educationLevel = educationLevel;
     }
 
-    public List<Degree> getDegrees() {
-        return degrees;
-    }
-
-    public void setDegrees(List<Degree> degrees) {
-        this.degrees = degrees;
-    }
+//    public List<Degree> getDegrees() {
+//        return degrees;
+//    }
+//
+//    public void setDegrees(List<Degree> degrees) {
+//        this.degrees = degrees;
+//    }
 
     public String getJob() {
         return job;
