@@ -59,7 +59,6 @@ public class Person {
     @Column(name = "kinship", nullable = false)
     private EKinship kinship;
 
-    // TODO: education related stuff should be arrays, not singles
     @Column(name = "education_level")
     private EEducationLevel educationLevel;
 
@@ -90,7 +89,6 @@ public class Person {
     public Integer getPersonId() {
         return personId;
     }
-
     public void setPersonId(Integer personId) {
         this.personId = personId;
     }
@@ -98,7 +96,6 @@ public class Person {
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -106,7 +103,6 @@ public class Person {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -114,7 +110,6 @@ public class Person {
     public ESex getSex() {
         return sex;
     }
-
     public void setSex(ESex sex) {
         this.sex = sex;
     }
@@ -122,7 +117,6 @@ public class Person {
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
@@ -130,7 +124,6 @@ public class Person {
     public String getCNP() {
         return CNP;
     }
-
     public void setCNP(String CNP) {
         this.CNP = CNP;
     }
@@ -138,7 +131,6 @@ public class Person {
     public String getCitizenship() {
         return citizenship;
     }
-
     public void setCitizenship(String citizenship) {
         this.citizenship = citizenship;
     }
@@ -146,7 +138,6 @@ public class Person {
     public Household getHousehold() {
         return household;
     }
-
     public void setHousehold(Household household) {
         this.household = household;
     }
@@ -154,7 +145,6 @@ public class Person {
     public EKinship getKinship() {
         return kinship;
     }
-
     public void setKinship(EKinship kinship) {
         this.kinship = kinship;
     }
@@ -162,7 +152,6 @@ public class Person {
     public EEducationLevel getEducationLevel() {
         return educationLevel;
     }
-
     public void setEducationLevel(EEducationLevel educationLevel) {
         this.educationLevel = educationLevel;
     }
@@ -170,7 +159,6 @@ public class Person {
     public List<Degree> getDegrees() {
         return degrees;
     }
-
     public void setDegrees(List<Degree> degrees) {
         this.degrees = degrees;
     }
@@ -178,7 +166,6 @@ public class Person {
     public String getJob() {
         return job;
     }
-
     public void setJob(String job) {
         this.job = job;
     }
@@ -186,7 +173,6 @@ public class Person {
     public String getPlaceOfWork() {
         return placeOfWork;
     }
-
     public void setPlaceOfWork(String placeOfWork) {
         this.placeOfWork = placeOfWork;
     }

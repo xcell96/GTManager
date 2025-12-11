@@ -35,7 +35,7 @@ public class DimHousehold {
     @Column(name = "valid_from", nullable = false)
     private LocalDateTime validFrom;
     @Column(name = "valid_to")
-    private LocalDateTime validTo;
+    private LocalDateTime validTo = null;
 
     public DimHousehold() {}
 
@@ -57,7 +57,6 @@ public class DimHousehold {
     public Integer getHouseholdSk() {
         return householdSk;
     }
-
     public void setHouseholdSk(Integer householdSk) {
         this.householdSk = householdSk;
     }
@@ -65,15 +64,11 @@ public class DimHousehold {
     public Integer getHouseholdId() {
         return householdId;
     }
-
     public void setHouseholdId(Integer householdId) {
         this.householdId = householdId;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
+    public String getAddress() { return address; }
     public void setAddress(String address) {
         this.address = address;
     }
@@ -81,7 +76,6 @@ public class DimHousehold {
     public BigDecimal getSurface() {
         return surface;
     }
-
     public void setSurface(BigDecimal surface) {
         this.surface = surface;
     }
@@ -89,7 +83,6 @@ public class DimHousehold {
     public Integer getCattle() {
         return cattle;
     }
-
     public void setCattle(Integer cattle) {
         this.cattle = cattle;
     }
@@ -97,7 +90,6 @@ public class DimHousehold {
     public Integer getSwine() {
         return swine;
     }
-
     public void setSwine(Integer swine) {
         this.swine = swine;
     }
@@ -105,7 +97,6 @@ public class DimHousehold {
     public Integer getSheep() {
         return sheep;
     }
-
     public void setSheep(Integer sheep) {
         this.sheep = sheep;
     }
@@ -113,7 +104,6 @@ public class DimHousehold {
     public Integer getGoats() {
         return goats;
     }
-
     public void setGoats(Integer goats) {
         this.goats = goats;
     }
@@ -121,7 +111,6 @@ public class DimHousehold {
     public Integer getEquines() {
         return equines;
     }
-
     public void setEquines(Integer equines) {
         this.equines = equines;
     }
@@ -129,7 +118,6 @@ public class DimHousehold {
     public Integer getPoultry() {
         return poultry;
     }
-
     public void setPoultry(Integer poultry) {
         this.poultry = poultry;
     }
@@ -137,7 +125,6 @@ public class DimHousehold {
     public Integer getRabbits() {
         return rabbits;
     }
-
     public void setRabbits(Integer rabbits) {
         this.rabbits = rabbits;
     }
@@ -145,7 +132,6 @@ public class DimHousehold {
     public Integer getDonkeys() {
         return donkeys;
     }
-
     public void setDonkeys(Integer donkeys) {
         this.donkeys = donkeys;
     }
@@ -153,7 +139,6 @@ public class DimHousehold {
     public Integer getBeeFamilies() {
         return beeFamilies;
     }
-
     public void setBeeFamilies(Integer beeFamilies) {
         this.beeFamilies = beeFamilies;
     }
@@ -161,7 +146,6 @@ public class DimHousehold {
     public Integer getOtherAnimals() {
         return otherAnimals;
     }
-
     public void setOtherAnimals(Integer otherAnimals) {
         this.otherAnimals = otherAnimals;
     }
@@ -169,7 +153,6 @@ public class DimHousehold {
     public LocalDateTime getValidFrom() {
         return validFrom;
     }
-
     public void setValidFrom(LocalDateTime validFrom) {
         this.validFrom = validFrom;
     }
@@ -177,7 +160,6 @@ public class DimHousehold {
     public LocalDateTime getValidTo() {
         return validTo;
     }
-
     public void setValidTo(LocalDateTime validTo) {
         this.validTo = validTo;
     }
