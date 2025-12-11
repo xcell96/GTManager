@@ -67,6 +67,22 @@ public class Household {
     @Column(name = "other_animals", nullable = false)
     private Integer otherAnimals = 0;
 
+    public Household() {}
+
+    public void copyFrom(Household other) {
+        this.address = other.address;
+        this.surface = other.surface;
+        this.cattle = other.cattle;
+        this.swine = other.swine;
+        this.sheep = other.sheep;
+        this.goats = other.goats;
+        this.equines = other.equines;
+        this.poultry = other.poultry;
+        this.rabbits = other.rabbits;
+        this.donkeys = other.donkeys;
+        this.beeFamilies = other.beeFamilies;
+        this.otherAnimals = other.otherAnimals;
+    }
 
     public Integer getHouseholdId() {
         return householdId;

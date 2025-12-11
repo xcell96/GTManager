@@ -23,6 +23,13 @@ public class Degree {
     @Column(name = "graduation_year")
     private Integer graduationYear;
 
+    public void copyFrom(Degree other) {
+        this.person = other.person;
+        this.title = other.title;
+        this.institution = other.institution;
+        this.graduationYear = other.graduationYear;
+    }
+
     public Integer getDegreeId() {
         return degreeId;
     }

@@ -72,6 +72,21 @@ public class Person {
     @Column(name = "place_of_work")
     private String placeOfWork;
 
+    public void copyFrom(Person other) {
+        this.firstName = other.firstName;
+        this.lastName = other.lastName;
+        this.sex = other.sex;
+        this.dateOfBirth = other.dateOfBirth;
+        this.CNP = other.CNP;
+        this.citizenship = other.citizenship;
+        this.household = other.household;
+        this.kinship = other.kinship;
+        this.educationLevel = other.educationLevel;
+        this.degrees = other.degrees;
+        this.job = other.job;
+        this.placeOfWork = other.placeOfWork;
+    }
+
     public Integer getPersonId() {
         return personId;
     }
@@ -152,13 +167,13 @@ public class Person {
         this.educationLevel = educationLevel;
     }
 
-//    public List<Degree> getDegrees() {
-//        return degrees;
-//    }
-//
-//    public void setDegrees(List<Degree> degrees) {
-//        this.degrees = degrees;
-//    }
+    public List<Degree> getDegrees() {
+        return degrees;
+    }
+
+    public void setDegrees(List<Degree> degrees) {
+        this.degrees = degrees;
+    }
 
     public String getJob() {
         return job;

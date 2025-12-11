@@ -24,9 +24,15 @@ public class TestRunner implements CommandLineRunner {
         h.setAddress("123 Main St");
         h.setSurface(BigDecimal.valueOf(100));
         h.setCattle(10);
+        h.setSwine(20);
 
-        hs.addHousehold(h);
+//        hs.addHousehold(h);
+//        System.out.println("Added household with id: " + h.getHouseholdId());
 
-        System.out.println("Added household with id: " + h.getHouseholdId());
+//        hs.updateHousehold(1, h);
+//        System.out.println("Updated household with id: " + h.getHouseholdId());
+
+        hs.deleteHousehold(1);
+        System.out.println("Deleted household with id: " + 1);
     }
 }
