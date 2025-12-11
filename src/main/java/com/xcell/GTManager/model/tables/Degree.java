@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Degree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "degree_id")
+    @Column(name = "degree_id", unique = true)
     private Integer degreeId;
 
     @ManyToOne(fetch = FetchType.LAZY)

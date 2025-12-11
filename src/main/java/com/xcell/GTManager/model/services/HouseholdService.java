@@ -1,35 +1,68 @@
 package com.xcell.GTManager.model.services;
 
+import com.xcell.GTManager.model.repositories.DimHouseholdRepository;
+import com.xcell.GTManager.model.repositories.HouseholdRepository;
+import com.xcell.GTManager.model.tables.DimHousehold;
 import com.xcell.GTManager.model.tables.Household;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 
 @Service
+@Transactional
 public class HouseholdService {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final HouseholdRepository householdRepo;
+    private final DimHouseholdRepository dimRepo;
 
-    @Transactional
-    public void addHousehold(Household h) {
-        em.persist(h);
+    public HouseholdService(HouseholdRepository householdRepo, DimHouseholdRepository dimRepo) {
+        this.householdRepo = householdRepo;
+        this.dimRepo = dimRepo;
     }
 
-    @Transactional
-    public void updateHousehold(Integer id, Household newData){
-        Household h = em.find(Household.class, id);
-        if(!Objects.equals(h.getHouseholdId(), newData.getHouseholdId())) return;
+    public void create(Household h) {
+        if(householdRepo.existsById(h.getHouseholdId())){
+            throw new IllegalArgumentException("Household with ID " + h.getHouseholdId() + " already exists");
+        }
+        householdRepo.save(h);
+
+        DimHousehold d = new DimHousehold();
+        d.copyFrom(h);
+        d.setHouseholdId(h.getHouseholdId());
+        d.setValidFrom(LocalDateTime.now());
+        d.setValidTo(null);
+
+        dimRepo.save(d);
+    }
+
+    public void update(Integer id, Household newData){
+        if(!householdRepo.existsById(id)) {
+            throw new IllegalArgumentException("Household with ID " + id + " doesn't exist");
+        }
+
+        Household h = householdRepo.findById(id).orElseThrow();
         h.copyFrom(newData);
-        em.persist(h);
+        householdRepo.save(h);
+
+        DimHousehold prev = dimRepo.findByHouseholdIdAndValidToIsNull(id).orElseThrow();
+        prev.setValidTo(LocalDateTime.now());
+        dimRepo.save(prev);
+
+        DimHousehold current = new DimHousehold();
+        current.copyFrom(h);
+        current.setHouseholdId(h.getHouseholdId());
+        current.setValidFrom(LocalDateTime.now());
+        current.setValidTo(null);
+
+        dimRepo.save(current);
     }
 
-    @Transactional
-    public void deleteHousehold(Integer id) {
-        Household h = em.find(Household.class, id);
-        em.remove(h);
+    public void delete(Integer id) {
+        householdRepo.deleteById(id);
+
+        DimHousehold last = dimRepo.findByHouseholdIdAndValidToIsNull(id).orElseThrow();
+        last.setValidTo(LocalDateTime.now());
+        dimRepo.save(last);
     }
 }

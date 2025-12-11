@@ -18,21 +18,21 @@ public class TestRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        Household h = new Household();
+//        Household h = new Household();
+//
+//        h.setHouseholdId(1);
+//        h.setAddress("123 Main St");
+//        h.setSurface(BigDecimal.valueOf(100));
+//        h.setCattle(10);
+//        h.setSwine(20);
 
-        h.setHouseholdId(1);
-        h.setAddress("123 Main St");
-        h.setSurface(BigDecimal.valueOf(100));
-        h.setCattle(10);
-        h.setSwine(20);
-
-//        hs.addHousehold(h);
+//        hs.create(h);
 //        System.out.println("Added household with id: " + h.getHouseholdId());
 
-//        hs.updateHousehold(1, h);
+//        hs.update(1, h);
 //        System.out.println("Updated household with id: " + h.getHouseholdId());
 
-        hs.deleteHousehold(1);
+        hs.delete(1);
         System.out.println("Deleted household with id: " + 1);
     }
 }

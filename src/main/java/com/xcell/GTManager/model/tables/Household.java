@@ -27,7 +27,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "Households")
 public class Household {
-    @Id @Column(name = "household_id")
+    @Id @Column(name = "household_id", unique = true)
     private Integer householdId;
 
     @Column(name = "address")

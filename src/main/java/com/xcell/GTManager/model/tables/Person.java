@@ -31,7 +31,7 @@ import java.util.List;
 @Entity
 @Table(name = "People")
 public class Person {
-    @Id @Column(name = "person_id")
+    @Id @Column(name = "person_id", unique = true)
     private Integer personId;
 
     @Column(name = "first_name")

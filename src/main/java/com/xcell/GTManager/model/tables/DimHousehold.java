@@ -10,8 +10,10 @@ import java.time.LocalDateTime;
 public class DimHousehold {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "household_sk", unique = true)
     private Integer householdSk;
 
+    @Column(name = "household_id", nullable = false)
     private Integer householdId;
 
     private String address;
@@ -25,58 +27,31 @@ public class DimHousehold {
     private Integer poultry;
     private Integer rabbits;
     private Integer donkeys;
+    @Column(name = "bee_families")
     private Integer beeFamilies;
+    @Column(name = "other_animals")
     private Integer otherAnimals;
 
-    @Column(nullable = false)
+    @Column(name = "valid_from", nullable = false)
     private LocalDateTime validFrom;
+    @Column(name = "valid_to")
     private LocalDateTime validTo;
 
     public DimHousehold() {}
 
-    public DimHousehold(Integer householdId,
-                        String address,
-                        BigDecimal surface,
-                        Integer cattle,
-                        Integer swine,
-                        Integer sheep,
-                        Integer goats,
-                        Integer equines,
-                        Integer poultry,
-                        Integer rabbits,
-                        Integer donkeys,
-                        Integer beeFamilies,
-                        Integer otherAnimals,
-                        LocalDateTime validFrom) {
-        this.householdId = householdId;
-        this.address = address;
-        this.surface = surface;
-        this.cattle = cattle;
-        this.swine = swine;
-        this.sheep = sheep;
-        this.goats = goats;
-        this.equines = equines;
-        this.poultry = poultry;
-        this.rabbits = rabbits;
-        this.donkeys = donkeys;
-        this.beeFamilies = beeFamilies;
-        this.otherAnimals = otherAnimals;
-        this.validFrom = validFrom;
-    }
-
-    @PrePersist
-    public void beforeInsert(){
-        if(validFrom == null) validFrom = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void beforeUpdate(){
-        throw new UnsupportedOperationException("Do not update DimHousehold; insert new version instead.");
-    }
-
-    @PreRemove
-    public void beforeDelete(){
-        System.out.println("Deleting DimHousehold with id: " + householdSk);
+    public void copyFrom(Household other) {
+        this.address = other.getAddress();
+        this.surface = other.getSurface();
+        this.cattle = other.getCattle();
+        this.swine = other.getSwine();
+        this.sheep = other.getSheep();
+        this.goats = other.getGoats();
+        this.equines = other.getEquines();
+        this.poultry = other.getPoultry();
+        this.rabbits = other.getRabbits();
+        this.donkeys = other.getDonkeys();
+        this.beeFamilies = other.getBeeFamilies();
+        this.otherAnimals = other.getOtherAnimals();
     }
 
     public Integer getHouseholdSk() {
