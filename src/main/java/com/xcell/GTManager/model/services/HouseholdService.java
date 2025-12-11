@@ -21,12 +21,7 @@ public class HouseholdService {
         this.dimRepo = dimRepo;
     }
 
-    public void create(Household h) {
-        if(householdRepo.existsById(h.getHouseholdId())){
-            throw new IllegalArgumentException("Household with ID " + h.getHouseholdId() + " already exists");
-        }
-        householdRepo.save(h);
-
+    private void createNewHistoryRecord(Household h) {
         DimHousehold d = new DimHousehold();
         d.copyFrom(h);
         d.setHouseholdId(h.getHouseholdId());
@@ -36,10 +31,17 @@ public class HouseholdService {
         dimRepo.save(d);
     }
 
+    public void create(Household h) {
+        if(householdRepo.existsById(h.getHouseholdId()))
+            throw new IllegalArgumentException("Household with ID " + h.getHouseholdId() + " already exists");
+
+        householdRepo.save(h);
+        createNewHistoryRecord(h);
+    }
+
     public void update(Integer id, Household newData){
-        if(!householdRepo.existsById(id)) {
+        if(!householdRepo.existsById(id))
             throw new IllegalArgumentException("Household with ID " + id + " doesn't exist");
-        }
 
         Household h = householdRepo.findById(id).orElseThrow();
         h.copyFrom(newData);
@@ -49,13 +51,7 @@ public class HouseholdService {
         prev.setValidTo(LocalDateTime.now());
         dimRepo.save(prev);
 
-        DimHousehold current = new DimHousehold();
-        current.copyFrom(h);
-        current.setHouseholdId(h.getHouseholdId());
-        current.setValidFrom(LocalDateTime.now());
-        current.setValidTo(null);
-
-        dimRepo.save(current);
+        createNewHistoryRecord(h);
     }
 
     public void delete(Integer id) {

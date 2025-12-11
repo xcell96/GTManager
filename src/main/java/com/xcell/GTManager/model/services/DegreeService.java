@@ -1,35 +1,47 @@
 package com.xcell.GTManager.model.services;
 
+import com.xcell.GTManager.model.repositories.DegreeRepository;
+import com.xcell.GTManager.model.repositories.PersonRepository;
 import com.xcell.GTManager.model.tables.Degree;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
 
 @Component
+@Transactional
 public class DegreeService {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final DegreeRepository degreeRepo;
+    private final PersonRepository personRepo;
 
-    @Transactional
-    public void addDegree(Degree d) {
-        em.persist(d);
+    public DegreeService(DegreeRepository degreeRepo, PersonRepository personRepo) {
+        this.degreeRepo = degreeRepo;
+        this.personRepo = personRepo;
     }
 
-    @Transactional
-    public void updateDegree(Integer id, Degree newData){
-        Degree d = em.find(Degree.class, id);
-        if(!Objects.equals(d.getDegreeId(), newData.getDegreeId())) return;
+    public void create(Degree d) {
+        if(degreeRepo.existsById(d.getDegreeId()))
+            throw new IllegalArgumentException("Degree with ID " + d.getDegreeId() + " already exists");
+
+        if(!personRepo.existsById(d.getPerson().getPersonId()))
+            throw new IllegalArgumentException("Person with ID " + d.getPerson().getPersonId() + " doesn't exist");
+
+        degreeRepo.save(d);
+    }
+
+    public void update(Integer id, Degree newData){
+        if(!degreeRepo.existsById(id))
+            throw new IllegalArgumentException("Degree with ID " + id + " doesn't exist");
+
+        if(!personRepo.existsById(newData.getPerson().getPersonId()))
+            throw new IllegalArgumentException("Person with ID " + newData.getPerson().getPersonId() + " doesn't exist");
+
+        Degree d = degreeRepo.findById(id).orElseThrow();
         d.copyFrom(newData);
-        em.persist(d);
+        degreeRepo.save(d);
     }
 
-    @Transactional
-    public void deleteDegree(Integer id) {
-        Degree d = em.find(Degree.class, id);
-        em.remove(d);
+    public void delete(Integer id) {
+        degreeRepo.deleteById(id);
     }
 }

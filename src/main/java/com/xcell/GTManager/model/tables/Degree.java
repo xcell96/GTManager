@@ -38,11 +38,11 @@ public class Degree {
         this.degreeId = degreeId;
     }
 
-    public Person getPersonId() {
+    public Person getPerson() {
         return person;
     }
 
-    public void setPersonId(Person person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
