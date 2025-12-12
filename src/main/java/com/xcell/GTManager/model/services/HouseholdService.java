@@ -24,7 +24,6 @@ public class HouseholdService {
     private void createNewHistoryRecord(Household h) {
         DimHousehold d = new DimHousehold();
         d.copyFrom(h);
-        d.setHouseholdId(h.getHouseholdId());
         d.setValidFrom(LocalDateTime.now());
         d.setValidTo(null);
 

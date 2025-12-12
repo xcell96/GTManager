@@ -54,6 +54,7 @@ public class DimPerson {
     public DimPerson() {}
 
     public void copyFrom(Person other) {
+        this.personId = other.getPersonId();
         this.firstName = other.getFirstName();
         this.lastName = other.getLastName();
         this.sex = other.getSex();

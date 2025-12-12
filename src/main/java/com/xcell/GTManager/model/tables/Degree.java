@@ -34,14 +34,9 @@ public class Degree {
         return degreeId;
     }
 
-    public void setDegreeId(Integer degreeId) {
-        this.degreeId = degreeId;
-    }
-
     public DimPerson getPerson() {
         return person;
     }
-
     public void setPerson(DimPerson person) {
         this.person = person;
     }
@@ -49,7 +44,6 @@ public class Degree {
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -57,7 +51,6 @@ public class Degree {
     public String getInstitution() {
         return institution;
     }
-
     public void setInstitution(String institution) {
         this.institution = institution;
     }
@@ -65,7 +58,6 @@ public class Degree {
     public Integer getGraduationYear() {
         return graduationYear;
     }
-
     public void setGraduationYear(Integer graduationYear) {
         this.graduationYear = graduationYear;
     }

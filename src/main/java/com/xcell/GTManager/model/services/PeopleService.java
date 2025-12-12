@@ -28,7 +28,6 @@ public class PeopleService {
     private void createNewHistoryRecord(Person p) {
         DimPerson d = new DimPerson();
         d.copyFrom(p);
-        d.setPersonId(p.getPersonId());
 
         //household?
         DimHousehold h = dimHouseholdRepo.findByHouseholdIdAndValidToIsNull(p.getHousehold().getHouseholdId()).orElseThrow();

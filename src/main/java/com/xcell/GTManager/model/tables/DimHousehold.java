@@ -40,6 +40,7 @@ public class DimHousehold {
     public DimHousehold() {}
 
     public void copyFrom(Household other) {
+        this.householdId = other.getHouseholdId();
         this.address = other.getAddress();
         this.surface = other.getSurface();
         this.cattle = other.getCattle();
