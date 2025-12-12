@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -74,6 +75,17 @@ class DegreeRepositoryTest {
 
         Degree d = new Degree();
         d.setPerson(dp);
+        d.setTitle("Master - Mechanical Engineering");
+        d.setInstitution("UP Timisoara");
+        d.setGraduationYear(2020);
+        degreeRepo.save(d);
 
+        Optional<Degree> retrieved = degreeRepo.findById(d.getDegreeId());
+        assertTrue(retrieved.isPresent());
+        assertEquals(d.getDegreeId(), retrieved.get().getDegreeId());
+        assertEquals(dp, retrieved.get().getPerson());
+        assertEquals("Master - Mechanical Engineering", retrieved.get().getTitle());
+        assertEquals("UP Timisoara", retrieved.get().getInstitution());
+        assertEquals(2020, retrieved.get().getGraduationYear());
     }
 }
