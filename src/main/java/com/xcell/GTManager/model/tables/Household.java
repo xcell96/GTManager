@@ -17,17 +17,16 @@ package com.xcell.GTManager.model.tables;
  * other_animals
  */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Households")
 public class Household {
-    @Id @Column(name = "household_id", unique = true)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "household_id", unique = true)
     private Integer householdId;
 
     @Column(name = "address")

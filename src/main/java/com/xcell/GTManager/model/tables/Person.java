@@ -25,8 +25,6 @@ import com.xcell.GTManager.enums.ESex;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "People")
@@ -62,9 +60,6 @@ public class Person {
     @Column(name = "education_level")
     private EEducationLevel educationLevel;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Degree> degrees = new ArrayList<>();
-
     @Column(name = "job")
     private String job;
 
@@ -81,7 +76,6 @@ public class Person {
         this.household = other.household;
         this.kinship = other.kinship;
         this.educationLevel = other.educationLevel;
-        this.degrees = other.degrees;
         this.job = other.job;
         this.placeOfWork = other.placeOfWork;
     }
@@ -154,13 +148,6 @@ public class Person {
     }
     public void setEducationLevel(EEducationLevel educationLevel) {
         this.educationLevel = educationLevel;
-    }
-
-    public List<Degree> getDegrees() {
-        return degrees;
-    }
-    public void setDegrees(List<Degree> degrees) {
-        this.degrees = degrees;
     }
 
     public String getJob() {

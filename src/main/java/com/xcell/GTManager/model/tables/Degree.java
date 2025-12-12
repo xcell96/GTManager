@@ -10,9 +10,9 @@ public class Degree {
     @Column(name = "degree_id", unique = true)
     private Integer degreeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
-    private Person person;
+    private DimPerson person;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -38,11 +38,11 @@ public class Degree {
         this.degreeId = degreeId;
     }
 
-    public Person getPerson() {
+    public DimPerson getPerson() {
         return person;
     }
 
-    public void setPerson(Person person) {
+    public void setPerson(DimPerson person) {
         this.person = person;
     }
 

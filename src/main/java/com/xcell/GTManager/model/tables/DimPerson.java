@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,7 +40,7 @@ public class DimPerson {
     private EEducationLevel educationLevel;
 
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Degree> degrees;
+    private List<Degree> degrees = new ArrayList<>();
 
     private String job;
     @Column(name = "place_of_work")
@@ -61,7 +62,6 @@ public class DimPerson {
         this.citizenship = other.getCitizenship();
         this.kinship = other.getKinship();
         this.educationLevel = other.getEducationLevel();
-        this.degrees = other.getDegrees();
         this.placeOfWork = other.getPlaceOfWork();
         this.job = other.getJob();
     }
