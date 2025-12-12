@@ -76,10 +76,10 @@ class DimPersonRepositoryTest {
         Optional<DimPerson> retrieved = dimRepo.findByPersonIdAndValidToIsNull(p.getPersonId());
         assertTrue(retrieved.isPresent());
         assertEquals(p.getPersonId(), retrieved.get().getPersonId());
-        assertEquals(p.getSex(), retrieved.get().getSex());
-        assertEquals(p.getKinship(), retrieved.get().getKinship());
-        assertEquals(p.getEducationLevel(), retrieved.get().getEducationLevel());
-        assertEquals(p.getHousehold().getHouseholdId(), retrieved.get().getHousehold().getHouseholdId());
+        assertEquals(ESex.MALE, retrieved.get().getSex());
+        assertEquals(EKinship.HEAD, retrieved.get().getKinship());
+        assertEquals(EEducationLevel.SUPERIOR, retrieved.get().getEducationLevel());
+        assertEquals(h.getHouseholdId(), retrieved.get().getHousehold().getHouseholdId());
     }
 
 }
