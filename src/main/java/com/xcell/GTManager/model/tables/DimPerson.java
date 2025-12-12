@@ -32,7 +32,7 @@ public class DimPerson {
     private String citizenship;
 
     @ManyToOne
-    @JoinColumn(name = "household_sk")
+    @JoinColumn(name = "household_sk", nullable = false)
     private DimHousehold household;
     private EKinship kinship;
 

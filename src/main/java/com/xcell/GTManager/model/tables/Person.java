@@ -53,7 +53,7 @@ public class Person {
     private String citizenship;
 
     @ManyToOne
-    @JoinColumn(name = "household_id")
+    @JoinColumn(name = "household_id", nullable = false)
     private Household household;
 
     @Column(name = "kinship", nullable = false)
