@@ -58,9 +58,6 @@ public class DimHousehold {
     public Integer getHouseholdSk() {
         return householdSk;
     }
-    public void setHouseholdSk(Integer householdSk) {
-        this.householdSk = householdSk;
-    }
 
     public Integer getHouseholdId() {
         return householdId;

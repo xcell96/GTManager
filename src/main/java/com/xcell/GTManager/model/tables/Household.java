@@ -18,6 +18,8 @@ package com.xcell.GTManager.model.tables;
  */
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
 
@@ -29,40 +31,51 @@ public class Household {
     @Column(name = "household_id", unique = true)
     private Integer householdId;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "address", nullable = false)
+    private String address = "N/A";
 
+    @DecimalMin("0.00")
     @Column(name = "surface")
-    private BigDecimal surface;
+    private BigDecimal surface = BigDecimal.valueOf(0);
 
 
+    @Min(0)
     @Column(name = "cattle", nullable = false)
     private Integer cattle = 0;
 
+    @Min(0)
     @Column(name = "swine", nullable = false)
     private Integer swine = 0;
 
+    @Min(0)
     @Column(name = "sheep", nullable = false)
     private Integer sheep = 0;
 
+    @Min(0)
     @Column(name = "goats", nullable = false)
     private Integer goats = 0;
 
+    @Min(0)
     @Column(name = "equines", nullable = false)
     private Integer equines = 0;
 
+    @Min(0)
     @Column(name = "poultry", nullable = false)
     private Integer poultry = 0;
 
+    @Min(0)
     @Column(name = "rabbits", nullable = false)
     private Integer rabbits = 0;
 
+    @Min(0)
     @Column(name = "donkeys", nullable = false)
     private Integer donkeys = 0;
 
+    @Min(0)
     @Column(name = "bee_families", nullable = false)
     private Integer beeFamilies = 0;
 
+    @Min(0)
     @Column(name = "other_animals", nullable = false)
     private Integer otherAnimals = 0;
 
@@ -87,14 +100,9 @@ public class Household {
         return householdId;
     }
 
-    public void setHouseholdId(Integer householdId) {
-        this.householdId = householdId;
-    }
-
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
@@ -102,7 +110,6 @@ public class Household {
     public BigDecimal getSurface() {
         return surface;
     }
-
     public void setSurface(BigDecimal surface) {
         this.surface = surface;
     }
@@ -110,7 +117,6 @@ public class Household {
     public Integer getCattle() {
         return cattle;
     }
-
     public void setCattle(Integer cattle) {
         this.cattle = cattle;
     }
@@ -118,7 +124,6 @@ public class Household {
     public Integer getSwine() {
         return swine;
     }
-
     public void setSwine(Integer swine) {
         this.swine = swine;
     }
@@ -126,7 +131,6 @@ public class Household {
     public Integer getSheep() {
         return sheep;
     }
-
     public void setSheep(Integer sheep) {
         this.sheep = sheep;
     }
@@ -134,7 +138,6 @@ public class Household {
     public Integer getGoats() {
         return goats;
     }
-
     public void setGoats(Integer goats) {
         this.goats = goats;
     }
@@ -142,7 +145,6 @@ public class Household {
     public Integer getEquines() {
         return equines;
     }
-
     public void setEquines(Integer equines) {
         this.equines = equines;
     }
@@ -150,7 +152,6 @@ public class Household {
     public Integer getPoultry() {
         return poultry;
     }
-
     public void setPoultry(Integer poultry) {
         this.poultry = poultry;
     }
@@ -158,7 +159,6 @@ public class Household {
     public Integer getRabbits() {
         return rabbits;
     }
-
     public void setRabbits(Integer rabbits) {
         this.rabbits = rabbits;
     }
@@ -166,7 +166,6 @@ public class Household {
     public Integer getDonkeys() {
         return donkeys;
     }
-
     public void setDonkeys(Integer donkeys) {
         this.donkeys = donkeys;
     }
@@ -174,7 +173,6 @@ public class Household {
     public Integer getBeeFamilies() {
         return beeFamilies;
     }
-
     public void setBeeFamilies(Integer beeFamilies) {
         this.beeFamilies = beeFamilies;
     }
@@ -182,7 +180,6 @@ public class Household {
     public Integer getOtherAnimals() {
         return otherAnimals;
     }
-
     public void setOtherAnimals(Integer otherAnimals) {
         this.otherAnimals = otherAnimals;
     }

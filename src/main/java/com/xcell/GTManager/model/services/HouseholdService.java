@@ -7,6 +7,7 @@ import com.xcell.GTManager.model.tables.Household;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -31,8 +32,8 @@ public class HouseholdService {
     }
 
     public void create(Household h) {
-        if(householdRepo.existsById(h.getHouseholdId()))
-            throw new IllegalArgumentException("Household with ID " + h.getHouseholdId() + " already exists");
+        if(h.getHouseholdId() != null)
+            throw new IllegalArgumentException("Household IDs are automatically generated.");
 
         householdRepo.save(h);
         createNewHistoryRecord(h);
