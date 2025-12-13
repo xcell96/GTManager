@@ -99,6 +99,7 @@ public class Household {
     public Integer getHouseholdId() {
         return householdId;
     }
+    public void setHouseholdId(Integer householdId) { this.householdId = householdId; }
 
     public String getAddress() {
         return address;

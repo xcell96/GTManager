@@ -1,5 +1,7 @@
 package com.xcell.GTManager.model.services;
 
+import com.xcell.GTManager.dto.HouseholdDto;
+import com.xcell.GTManager.dto.HouseholdHistoryDto;
 import com.xcell.GTManager.model.repositories.DimHouseholdRepository;
 import com.xcell.GTManager.model.repositories.HouseholdRepository;
 import com.xcell.GTManager.model.tables.DimHousehold;
@@ -7,8 +9,8 @@ import com.xcell.GTManager.model.tables.Household;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -60,5 +62,17 @@ public class HouseholdService {
         DimHousehold last = dimRepo.findByHouseholdIdAndValidToIsNull(id).orElseThrow();
         last.setValidTo(LocalDateTime.now());
         dimRepo.save(last);
+    }
+
+    public HouseholdDto getCurrent(Integer id) {
+        Household h = householdRepo.findById(id).orElseThrow();
+        return HouseholdDto.fromEntity(h);
+    }
+
+    public List<HouseholdHistoryDto> getHistory(Integer id) {
+        return dimRepo.findAll().stream()
+                .filter(d -> d.getHouseholdId().equals(id))
+                .map(d -> HouseholdHistoryDto.fromEntity(d))
+                .toList();
     }
 }
