@@ -1,53 +1,140 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en_US">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GTManager - Households</title>
+
+    <style>
+        :root { --bg: #0b1020; --card: #111a33; --text: #e7ecff; --muted: #b9c4ff; --link: #86b7ff; }
+        body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 32px 20px; }
+
+        h1 { margin: 0 0 6px; font-size: 28px; }
+        p  { margin: 0 0 18px; color: var(--muted); }
+
+        .toolbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 16px 0 14px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        a { color: var(--link); text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn:hover { background: rgba(255,255,255,0.10); text-decoration: none; }
+        .btn-primary { background: rgba(134,183,255,0.18); border-color: rgba(134,183,255,0.35); }
+        .btn-primary:hover { background: rgba(134,183,255,0.24); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .table-wrap { overflow: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08); }
+        table { width: 100%; border-collapse: collapse; min-width: 980px; }
+        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        th {
+            position: sticky;
+            top: 0;
+            background: rgba(17,26,51,0.92);
+            backdrop-filter: blur(6px);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: rgba(231,236,255,0.85);
+        }
+        tr:hover td { background: rgba(255,255,255,0.03); }
+
+        .cell-num { text-align: right; font-variant-numeric: tabular-nums; }
+        .cell-actions { white-space: nowrap; display: flex; gap: 10px; align-items: center; }
+
+        form.inline { display: inline; margin: 0; }
+        .btn-danger {
+            background: rgba(255, 90, 90, 0.14);
+            border-color: rgba(255, 90, 90, 0.30);
+        }
+        .btn-danger:hover { background: rgba(255, 90, 90, 0.20); }
+
+        .muted { color: rgba(231,236,255,0.75); font-size: 13px; }
+    </style>
 </head>
 <body>
 
-<h1>Households</h1>
+<div class="wrap">
+    <div class="toolbar">
+        <div>
+            <h1>Households</h1>
+            <p class="muted">Manage households and their livestock counts.</p>
+        </div>
 
-<a th:href="@{/households/new}">Create new</a>
+        <div class="actions">
+            <a class="btn" th:href="@{/}">Home</a>
+            <a class="btn btn-primary" th:href="@{/households/new}">Create new</a>
+        </div>
+    </div>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Address</th>
-        <th>Surface</th>
-        <th>Cattle</th>
-        <th>Swine</th>
-        <th>Sheep</th>
-        <th>Goats</th>
-        <th>Equines</th>
-        <th>Poultry</th>
-        <th>Rabbits</th>
-        <th>Donkeys</th>
-        <th>Bee families</th>
-        <th>Other animals</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="h : ${households}">
-        <td th:text="${h.householdId}"></td>
-        <td th:text="${h.address}"></td>
-        <td th:text="${h.surface}"></td>
-        <td th:text="${h.cattle}"></td>
-        <td th:text="${h.swine}"></td>
-        <td th:text="${h.sheep}"></td>
-        <td th:text="${h.goats}"></td>
-        <td th:text="${h.equines}"></td>
-        <td th:text="${h.poultry}"></td>
-        <td th:text="${h.rabbits}"></td>
-        <td th:text="${h.donkeys}"></td>
-        <td th:text="${h.beeFamilies}"></td>
-        <td th:text="${h.otherAnimals}"></td>
-        <td>
-            <a th:href="@{/households/{id}/edit(id=${h.householdId})}">Edit</a>
-            <form th:action="@{/households/{id}/delete(id=${h.householdId})}" method="post" style="display:inline">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
+    <div class="card">
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Address</th>
+                    <th>Surface</th>
+                    <th>Cattle</th>
+                    <th>Swine</th>
+                    <th>Sheep</th>
+                    <th>Goats</th>
+                    <th>Equines</th>
+                    <th>Poultry</th>
+                    <th>Rabbits</th>
+                    <th>Donkeys</th>
+                    <th>Bee families</th>
+                    <th>Other animals</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr th:each="h : ${households}">
+                    <td th:text="${h.householdId}"></td>
+                    <td th:text="${h.address}"></td>
+                    <td class="cell-num" th:text="${h.surface}"></td>
+                    <td class="cell-num" th:text="${h.cattle}"></td>
+                    <td class="cell-num" th:text="${h.swine}"></td>
+                    <td class="cell-num" th:text="${h.sheep}"></td>
+                    <td class="cell-num" th:text="${h.goats}"></td>
+                    <td class="cell-num" th:text="${h.equines}"></td>
+                    <td class="cell-num" th:text="${h.poultry}"></td>
+                    <td class="cell-num" th:text="${h.rabbits}"></td>
+                    <td class="cell-num" th:text="${h.donkeys}"></td>
+                    <td class="cell-num" th:text="${h.beeFamilies}"></td>
+                    <td class="cell-num" th:text="${h.otherAnimals}"></td>
+                    <td class="cell-actions">
+                        <a th:href="@{/households/{id}/edit(id=${h.householdId})}">Edit</a>
+
+                        <form class="inline"
+                              th:action="@{/households/{id}/delete(id=${h.householdId})}"
+                              method="post">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
