@@ -20,12 +20,6 @@ public class HouseholdDto {
     private Integer beeFamilies;
     private Integer otherAnimals;
 
-    public Integer getHouseholdId() { return householdId; }
-
-    public String getAddress() { return address; }
-
-    public BigDecimal getSurface() { return surface; }
-
     public static HouseholdDto fromEntity(Household h) {
         HouseholdDto dto = new HouseholdDto();
         dto.householdId = h.getHouseholdId();
@@ -45,4 +39,30 @@ public class HouseholdDto {
 
         return dto;
     }
+
+    public Integer getHouseholdId() { return householdId; }
+
+    public String getAddress() { return address; }
+
+    public BigDecimal getSurface() { return surface; }
+
+    public Integer getCattle() { return cattle; }
+
+    public Integer getSwine() { return swine; }
+
+    public Integer getSheep() { return sheep; }
+
+    public Integer getGoats() { return goats; }
+
+    public Integer getEquines() { return equines; }
+
+    public Integer getPoultry() { return poultry; }
+
+    public Integer getRabbits() { return rabbits; }
+
+    public Integer getDonkeys() { return donkeys; }
+
+    public Integer getBeeFamilies() { return beeFamilies; }
+
+    public Integer getOtherAnimals() { return otherAnimals; }
 }

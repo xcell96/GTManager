@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en_US">
+<head>
+    <title>GTManager - Households</title>
+</head>
 <body>
 
 <h1>Households</h1>
@@ -11,12 +14,32 @@
         <th>ID</th>
         <th>Address</th>
         <th>Surface</th>
+        <th>Cattle</th>
+        <th>Swine</th>
+        <th>Sheep</th>
+        <th>Goats</th>
+        <th>Equines</th>
+        <th>Poultry</th>
+        <th>Rabbits</th>
+        <th>Donkeys</th>
+        <th>Bee families</th>
+        <th>Other animals</th>
         <th>Actions</th>
     </tr>
     <tr th:each="h : ${households}">
         <td th:text="${h.householdId}"></td>
         <td th:text="${h.address}"></td>
         <td th:text="${h.surface}"></td>
+        <td th:text="${h.cattle}"></td>
+        <td th:text="${h.swine}"></td>
+        <td th:text="${h.sheep}"></td>
+        <td th:text="${h.goats}"></td>
+        <td th:text="${h.equines}"></td>
+        <td th:text="${h.poultry}"></td>
+        <td th:text="${h.rabbits}"></td>
+        <td th:text="${h.donkeys}"></td>
+        <td th:text="${h.beeFamilies}"></td>
+        <td th:text="${h.otherAnimals}"></td>
         <td>
             <a th:href="@{/households/{id}/edit(id=${h.householdId})}">Edit</a>
             <form th:action="@{/households/{id}/delete(id=${h.householdId})}" method="post" style="display:inline">
