@@ -1,7 +1,6 @@
 package com.xcell.GTManager.dto;
 
 import com.xcell.GTManager.model.tables.DimHousehold;
-import com.xcell.GTManager.model.tables.Household;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
