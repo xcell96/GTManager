@@ -5,39 +5,110 @@ import com.xcell.GTManager.model.tables.Household;
 import java.math.BigDecimal;
 
 public class HouseholdDto {
-    public Integer householdId;
-    public String address;
-    public BigDecimal surface;
+    private Integer householdId;
+    private String address;
+    private BigDecimal surface;
 
-    public Integer cattle;
-    public Integer swine;
-    public Integer sheep;
-    public Integer goats;
-    public Integer equines;
-    public Integer poultry;
-    public Integer rabbits;
-    public Integer donkeys;
-    public Integer beeFamilies;
-    public Integer otherAnimals;
+    private Integer cattle;
+    private Integer swine;
+    private Integer sheep;
+    private Integer goats;
+    private Integer equines;
+    private Integer poultry;
+    private Integer rabbits;
+    private Integer donkeys;
+    private Integer beeFamilies;
+    private Integer otherAnimals;
 
-    public Household toEntity() {
-        Household h = new Household();
-        h.setHouseholdId(householdId);
-        h.setAddress(address);
-        h.setSurface(surface);
+    public Integer getHouseholdId() {
+        return householdId;
+    }
+    public void setHouseholdId(Integer householdId) {
+        this.householdId = householdId;
+    }
 
-        h.setCattle(cattle);
-        h.setSwine(swine);
-        h.setSheep(sheep);
-        h.setGoats(goats);
-        h.setEquines(equines);
-        h.setPoultry(poultry);
-        h.setRabbits(rabbits);
-        h.setDonkeys(donkeys);
-        h.setBeeFamilies(beeFamilies);
-        h.setOtherAnimals(otherAnimals);
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-        return h;
+    public BigDecimal getSurface() {
+        return surface;
+    }
+    public void setSurface(BigDecimal surface) {
+        this.surface = surface;
+    }
+
+    public Integer getCattle() {
+        return cattle;
+    }
+    public void setCattle(Integer cattle) {
+        this.cattle = cattle;
+    }
+
+    public Integer getSwine() {
+        return swine;
+    }
+    public void setSwine(Integer swine) {
+        this.swine = swine;
+    }
+
+    public Integer getSheep() {
+        return sheep;
+    }
+    public void setSheep(Integer sheep) {
+        this.sheep = sheep;
+    }
+
+    public Integer getGoats() {
+        return goats;
+    }
+    public void setGoats(Integer goats) {
+        this.goats = goats;
+    }
+
+    public Integer getEquines() {
+        return equines;
+    }
+    public void setEquines(Integer equines) {
+        this.equines = equines;
+    }
+
+    public Integer getPoultry() {
+        return poultry;
+    }
+    public void setPoultry(Integer poultry) {
+        this.poultry = poultry;
+    }
+
+    public Integer getRabbits() {
+        return rabbits;
+    }
+    public void setRabbits(Integer rabbits) {
+        this.rabbits = rabbits;
+    }
+
+    public Integer getDonkeys() {
+        return donkeys;
+    }
+    public void setDonkeys(Integer donkeys) {
+        this.donkeys = donkeys;
+    }
+
+    public Integer getBeeFamilies() {
+        return beeFamilies;
+    }
+    public void setBeeFamilies(Integer beeFamilies) {
+        this.beeFamilies = beeFamilies;
+    }
+
+    public Integer getOtherAnimals() {
+        return otherAnimals;
+    }
+    public void setOtherAnimals(Integer otherAnimals) {
+        this.otherAnimals = otherAnimals;
     }
 
     public static HouseholdDto fromEntity(Household h) {

@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 public class Household {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "household_id", unique = true)
+    @Column(name = "household_id", unique = true, nullable = false, updatable = false)
     private Integer householdId;
 
     @Column(name = "address", nullable = false)
@@ -99,7 +99,6 @@ public class Household {
     public Integer getHouseholdId() {
         return householdId;
     }
-    public void setHouseholdId(Integer householdId) { this.householdId = householdId; }
 
     public String getAddress() {
         return address;

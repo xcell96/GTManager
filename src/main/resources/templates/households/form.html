@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en_US">
+<body>
+
+<h1 th:text="${household.householdId == null ? 'Create Household' : 'Edit Household'}"></h1>
+
+<form th:action="@{${formAction}}"
+      th:object="${household}"
+      method="post">
+
+    <div>
+        <label>Address</label>
+        <label>
+            <input type="text" th:field="*{address}" />
+        </label>
+    </div>
+
+    <div>
+        <label>Surface</label>
+        <label>
+            <input type="number" step="0.01" th:field="*{surface}" />
+        </label>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<a th:href="@{/households}">Back</a>
+
+</body>
+</html>

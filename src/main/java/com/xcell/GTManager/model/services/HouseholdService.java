@@ -37,8 +37,8 @@ public class HouseholdService {
         if(h.getHouseholdId() != null)
             throw new IllegalArgumentException("Household IDs are automatically generated.");
 
-        householdRepo.save(h);
-        createNewHistoryRecord(h);
+        Household saved = householdRepo.saveAndFlush(h);
+        createNewHistoryRecord(saved);
     }
 
     public void update(Integer id, Household newData){
@@ -74,5 +74,9 @@ public class HouseholdService {
                 .filter(d -> d.getHouseholdId().equals(id))
                 .map(d -> HouseholdHistoryDto.fromEntity(d))
                 .toList();
+    }
+
+    public List<HouseholdDto> getAll(){
+        return householdRepo.findAll().stream().map(HouseholdDto::fromEntity).toList();
     }
 }

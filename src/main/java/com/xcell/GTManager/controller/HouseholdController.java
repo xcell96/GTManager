@@ -1,17 +1,13 @@
 package com.xcell.GTManager.controller;
 
-import com.xcell.GTManager.dto.HouseholdDto;
-import com.xcell.GTManager.dto.HouseholdHistoryDto;
 import com.xcell.GTManager.model.services.HouseholdService;
 import com.xcell.GTManager.model.tables.Household;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/households")
+@Controller
+@RequestMapping("/households")
 public class HouseholdController {
 
     private final HouseholdService householdService;
@@ -20,29 +16,41 @@ public class HouseholdController {
         this.householdService = householdService;
     }
 
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute("households", householdService.getAll());
+        return "households/list";
+    }
+
+    @GetMapping("/new")
+    public String createForm(Model model) {
+        model.addAttribute("household", new Household());
+        model.addAttribute("formAction", "/households");
+        return "households/form";
+    }
+
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody HouseholdDto dto) {
-        Household h = dto.toEntity();
-        householdService.create(h);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public String create(@ModelAttribute Household household) {
+        householdService.create(household);
+        return "redirect:/households";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Void> update(
-            @PathVariable Integer id,
-            @RequestBody HouseholdDto dto
-    ) {
-        Household h = dto.toEntity();
-        householdService.update(id, h);
-        return ResponseEntity.noContent().build();
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Integer id, Model model) {
+        model.addAttribute("household", householdService.getCurrent(id));
+        model.addAttribute("formAction", "/households/" + id);
+        return "households/form";
     }
 
-    @GetMapping("/{id}")
-    public HouseholdDto getCurrent(@PathVariable Integer id) {
-        return householdService.getCurrent(id);
+    @PostMapping("/{id}")
+    public String update(@PathVariable Integer id, @ModelAttribute Household household) {
+        householdService.update(id, household);
+        return "redirect:/households";
     }
 
-    public List<HouseholdHistoryDto> getHistory(@PathVariable Integer id){
-        return householdService.getHistory(id);
+    @PostMapping("/{id}/delete")
+    public String delete(@PathVariable Integer id) {
+        householdService.delete(id);
+        return "redirect:/households";
     }
 }
