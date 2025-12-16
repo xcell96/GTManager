@@ -12,6 +12,8 @@
 
         .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px; }
 
+        form.inline { display: inline; margin: 0; }
+
         h1 { margin: 0 0 6px; font-size: 28px; }
         p  { margin: 0 0 18px; color: var(--muted); }
 
@@ -75,6 +77,12 @@
 
         <div class="actions">
             <a class="btn" th:href="@{/}">Home</a>
+            <a class="btn" th:href="@{/account}">Account</a>
+
+            <form class="inline" th:action="@{/logout}" method="post">
+                <button class="btn" type="submit">Logout</button>
+            </form>
+
             <a class="btn" th:href="@{/households}">Back to list</a>
         </div>
     </div>

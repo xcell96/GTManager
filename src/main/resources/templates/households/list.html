@@ -84,6 +84,12 @@
 
         <div class="actions">
             <a class="btn" th:href="@{/}">Home</a>
+            <a class="btn" th:href="@{/account}">Account</a>
+
+            <form class="inline" th:action="@{/logout}" method="post">
+                <button class="btn" type="submit">Logout</button>
+            </form>
+
             <a class="btn btn-primary" th:href="@{/households/new}">Create new</a>
         </div>
     </div>

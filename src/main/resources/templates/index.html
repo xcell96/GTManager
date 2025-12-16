@@ -17,12 +17,45 @@
         .card a { color: var(--link); text-decoration: none; font-weight: 600; }
         .card a:hover { text-decoration: underline; }
         code { background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 6px; }
+
+        .toolbar { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 0 0 14px; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.06);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn:hover { background: rgba(255,255,255,0.10); text-decoration: none; }
+
+        form.inline { display: inline; margin: 0; }
     </style>
 </head>
 <body>
 <div class="wrap">
-    <h1>GTManager</h1>
-    <p>Tables:</p>
+
+    <div class="toolbar">
+        <div>
+            <h1>GTManager</h1>
+            <p>Tables:</p>
+        </div>
+
+        <div class="actions">
+            <a class="btn" th:href="@{/account}">Account</a>
+
+            <form class="inline" th:action="@{/logout}" method="post">
+                <button class="btn" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
 
     <div class="grid">
         <div class="card">
