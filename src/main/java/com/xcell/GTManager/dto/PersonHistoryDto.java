@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 public class PersonHistoryDto {
 
+    private Integer personSk;
     private Integer personId;
 
     private String firstName;
@@ -35,6 +36,7 @@ public class PersonHistoryDto {
         PersonHistoryDto dto = new PersonHistoryDto();
 
         DtoMapper.apply(
+                () -> dto.personSk = p.getPersonSk(),
                 () -> dto.personId = p.getPersonId(),
                 () -> dto.firstName = p.getFirstName(),
                 () -> dto.lastName = p.getLastName(),
@@ -54,6 +56,7 @@ public class PersonHistoryDto {
         return dto;
     }
 
+    public Integer getPersonSk() { return personSk; }
     public Integer getPersonId() { return personId; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }

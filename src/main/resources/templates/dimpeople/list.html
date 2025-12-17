@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
-  <title>GTManager - People</title>
+  <title>GTManager - People records</title>
   <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
@@ -12,8 +12,8 @@
 <div class="wrap wrap-wide">
   <div class="toolbar">
     <div>
-      <h1>People</h1>
-      <p class="muted">View people and basic profile data.</p>
+      <h1>People records</h1>
+      <p class="muted">See how people changed in time.</p>
     </div>
 
     <div class="actions">
@@ -23,8 +23,6 @@
       <form class="inline" th:action="@{/logout}" method="post">
         <button class="btn" type="submit">Logout</button>
       </form>
-
-      <a class="btn btn-primary" th:href="@{/people/new}">Create new</a>
     </div>
   </div>
 
@@ -32,6 +30,7 @@
     <div class="table-wrap">
       <table>
         <tr>
+          <th>SK</th>
           <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -44,11 +43,10 @@
           <th>Education</th>
           <th>Job</th>
           <th>Place of Work</th>
-          <th>Degrees</th>
-          <th>Actions</th>
         </tr>
 
-        <tr th:each="p : ${people}">
+        <tr th:each="p : ${dimpeople}">
+          <td class="cell-num" th:text="${p.personSk}"></td>
           <td>
             <a th:href="@{/people/{id}(id=${p.personId})}" th:text="${p.personId}"></a>
           </td>
@@ -57,28 +55,15 @@
           <td th:text="${p.sex}"></td>
           <td th:text="${p.dateOfBirth}"></td>
           <td th:text="${p.citizenship}"></td>
-          <td th:text="${p.CNP}"></td>
-          <td class="cell-num">
-            <a th:if="${p.householdId != null}"
-               th:href="@{/households/{id}(id=${p.householdId})}"
-               th:text="${p.householdId}"></a>
-            <span th:if="${p.householdId == null}"></span>
-          </td>
+          <td class="cell-num" th:text="${p.CNP}"></td>
+          <td class="cell-num" th:text="${p.householdSk}"></td>
           <td th:text="${p.kinship}"></td>
           <td th:text="${p.educationLevel}"></td>
           <td th:text="${p.job}"></td>
           <td th:text="${p.placeOfWork}"></td>
-          <td class="cell-num" th:text="${p.degreesCount}"></td>
-          <td class="cell-actions">
-            <a th:href="@{/people/{id}(id=${p.personId})}">View</a>
-            <a th:href="@{/people/{id}/edit(id=${p.personId})}">Edit</a>
-            <form class="inline" th:action="@{/people/{id}/delete(id=${p.personId})}" method="post">
-              <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
-          </td>
         </tr>
 
-        <tr th:if="${#lists.isEmpty(people)}">
+        <tr th:if="${#lists.isEmpty(dimpeople)}">
           <td colspan="13" class="muted">No people found.</td>
         </tr>
       </table>

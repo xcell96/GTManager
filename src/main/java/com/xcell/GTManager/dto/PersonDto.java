@@ -29,8 +29,7 @@ public class PersonDto {
 
     private Integer degreesCount;
 
-    public PersonDto() {
-    }
+    public PersonDto() {}
 
     public static PersonDto fromEntity(Person p){
         PersonDto dto = new PersonDto();

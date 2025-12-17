@@ -30,8 +30,7 @@ public class DimHouseholdService {
     }
 
     public HouseholdHistoryDto getBySk(Integer sk){
-        DimHousehold d = dimHouseholdRepo.findById(sk).orElseThrow();
-        return HouseholdHistoryDto.fromEntity(d);
+        return HouseholdHistoryDto.fromEntity(dimHouseholdRepo.findById(sk).orElseThrow());
     }
 
     public long getMemberCount(Integer householdSk) {
