@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+    <title>GTManager - Household records</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap">
+    <div class="toolbar">
+        <div>
+            <h1>Household records</h1>
+            <p class="muted">See how households changed in time.</p>
+        </div>
+
+        <div class="actions">
+            <a class="btn" th:href="@{/}">Home</a>
+            <a class="btn" th:href="@{/account}">Account</a>
+
+            <form class="inline" th:action="@{/logout}" method="post">
+                <button class="btn" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>SK</th>
+                    <th>As of</th>
+                    <th>Until</th>
+                    <th>ID</th>
+                    <th>Address</th>
+                    <th>Surface</th>
+                    <th>Cattle</th>
+                    <th>Swine</th>
+                    <th>Sheep</th>
+                    <th>Goats</th>
+                    <th>Equines</th>
+                    <th>Poultry</th>
+                    <th>Rabbits</th>
+                    <th>Donkeys</th>
+                    <th>Bee families</th>
+                    <th>Other animals</th>
+                    <th>Actions</th>
+                </tr>
+
+                <tr th:each="h : ${dimhouseholds}">
+                    <td class="cell-num" th:text="${h.householdSk}"></td>
+                    <td th:text="${h.validFrom}"></td>
+                    <td th:text="${h.validTo}"></td>
+                    <td>
+                        <a th:href="@{/households/{id}(id=${h.householdId})}" th:text="${h.householdId}"></a>
+                    </td>
+                    <td th:text="${h.address}"></td>
+                    <td class="cell-num" th:text="${h.surface}"></td>
+                    <td class="cell-num" th:text="${h.cattle}"></td>
+                    <td class="cell-num" th:text="${h.swine}"></td>
+                    <td class="cell-num" th:text="${h.sheep}"></td>
+                    <td class="cell-num" th:text="${h.goats}"></td>
+                    <td class="cell-num" th:text="${h.equines}"></td>
+                    <td class="cell-num" th:text="${h.poultry}"></td>
+                    <td class="cell-num" th:text="${h.rabbits}"></td>
+                    <td class="cell-num" th:text="${h.donkeys}"></td>
+                    <td class="cell-num" th:text="${h.beeFamilies}"></td>
+                    <td class="cell-num" th:text="${h.otherAnimals}"></td>
+                    <td class="cell-actions">
+                        <a th:href="@{/dimhouseholds/{sk}(sk=${h.householdSk})}">View</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

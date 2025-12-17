@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+    <title>GTManager - Household Record Details</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap wrap-wide">
+    <div class="toolbar">
+        <div>
+            <h1>
+                Record #
+                <a th:href="@{/dimhouseholds/{sk}(sk=${household.householdSk})}" th:text="${household.householdSk}"></a>
+            </h1>
+            <p class="muted">
+                <span th:text="${household.address}"></span>
+                <span> • Members: </span><strong th:text="${memberCount}"></strong>
+            </p>
+        </div>
+
+        <div class="actions">
+            <a class="btn" th:href="@{/dimhouseholds}">Back</a>
+            <a class="btn" th:href="@{/}">Home</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="margin: 0 0 12px;">Members</h2>
+
+        <div class="table-wrap">
+            <table style="min-width: 760px;">
+                <tr>
+                    <th>Person ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Kinship</th>
+                    <th>Date of Birth</th>
+                </tr>
+
+                <tr th:each="p : ${members}">
+                    <td>
+                        <a th:href="@{/people/{id}(id=${p.personId})}" th:text="${p.personId}"></a>
+                    </td>
+                    <td th:text="${p.firstName}"></td>
+                    <td th:text="${p.lastName}"></td>
+                    <td th:text="${p.kinship}"></td>
+                    <td th:text="${p.dateOfBirth}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(members)}">
+                    <td colspan="5" class="muted">No members found for this record.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

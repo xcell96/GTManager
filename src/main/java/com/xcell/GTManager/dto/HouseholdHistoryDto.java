@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class HouseholdHistoryDto {
+    public Integer householdSk;
     public Integer householdId;
     public String address;
     public BigDecimal surface;
@@ -28,6 +29,7 @@ public class HouseholdHistoryDto {
         HouseholdHistoryDto dto = new HouseholdHistoryDto();
 
         DtoMapper.apply(
+                () -> dto.householdSk = h.getHouseholdSk(),
                 () -> dto.householdId = h.getHouseholdId(),
                 () -> dto.address = h.getAddress(),
                 () -> dto.surface = h.getSurface(),

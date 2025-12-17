@@ -9,4 +9,7 @@ import java.util.Optional;
 public interface DimPersonRepository extends JpaRepository<DimPerson, Integer> {
     Optional<DimPerson> findByPersonIdAndValidToIsNull(Integer id);
     List<DimPerson> findByPersonIdOrderByValidFromDesc(Integer id);
+
+    long countByHouseholdHouseholdSk(Integer householdSk);
+    List<DimPerson> findByHouseholdHouseholdSk(Integer householdSk);
 }
