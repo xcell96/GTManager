@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+    <title>GTManager - Household Details</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap wrap-wide">
+    <div class="toolbar">
+        <div>
+            <h1 th:text="'Household #' + ${household.householdId}"></h1>
+            <p class="muted">
+                <span th:text="${household.address}"></span>
+                <span> • Members: </span><strong th:text="${memberCount}"></strong>
+            </p>
+        </div>
+
+        <div class="actions">
+            <a class="btn" th:href="@{/households}">Back</a>
+            <a class="btn" th:href="@{/}">Home</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="margin: 0 0 12px;">Members</h2>
+
+        <div class="table-wrap">
+            <table style="min-width: 760px;">
+                <tr>
+                    <th>Person ID</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Kinship</th>
+                    <th>Date of Birth</th>
+                </tr>
+
+                <tr th:each="p : ${members}">
+                    <td th:text="${p.personId}"></td>
+                    <td th:text="${p.firstName}"></td>
+                    <td th:text="${p.lastName}"></td>
+                    <td th:text="${p.kinship}"></td>
+                    <td th:text="${p.dateOfBirth}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(members)}">
+                    <td colspan="5" class="muted">No members found for this household.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card" style="margin-top: 16px;">
+        <h2 style="margin: 0 0 12px;">History</h2>
+
+        <div class="table-wrap">
+            <table style="min-width: 980px;">
+                <tr>
+                    <th>Valid from</th>
+                    <th>Valid to</th>
+                    <th>Address</th>
+                    <th>Surface</th>
+                    <th>Cattle</th>
+                    <th>Swine</th>
+                    <th>Sheep</th>
+                    <th>Goats</th>
+                    <th>Equines</th>
+                    <th>Poultry</th>
+                    <th>Rabbits</th>
+                    <th>Donkeys</th>
+                    <th>Bee families</th>
+                    <th>Other animals</th>
+                </tr>
+
+                <tr th:each="h : ${history}">
+                    <td th:text="${h.validFrom}"></td>
+                    <td th:text="${h.validTo}"></td>
+                    <td th:text="${h.address}"></td>
+                    <td class="cell-num" th:text="${h.surface}"></td>
+                    <td class="cell-num" th:text="${h.cattle}"></td>
+                    <td class="cell-num" th:text="${h.swine}"></td>
+                    <td class="cell-num" th:text="${h.sheep}"></td>
+                    <td class="cell-num" th:text="${h.goats}"></td>
+                    <td class="cell-num" th:text="${h.equines}"></td>
+                    <td class="cell-num" th:text="${h.poultry}"></td>
+                    <td class="cell-num" th:text="${h.rabbits}"></td>
+                    <td class="cell-num" th:text="${h.donkeys}"></td>
+                    <td class="cell-num" th:text="${h.beeFamilies}"></td>
+                    <td class="cell-num" th:text="${h.otherAnimals}"></td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(history)}">
+                    <td colspan="14" class="muted">No history records found for this household.</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

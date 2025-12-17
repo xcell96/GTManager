@@ -4,8 +4,10 @@ import com.xcell.GTManager.dto.HouseholdDto;
 import com.xcell.GTManager.dto.HouseholdHistoryDto;
 import com.xcell.GTManager.model.repositories.DimHouseholdRepository;
 import com.xcell.GTManager.model.repositories.HouseholdRepository;
+import com.xcell.GTManager.model.repositories.PersonRepository;
 import com.xcell.GTManager.model.tables.DimHousehold;
 import com.xcell.GTManager.model.tables.Household;
+import com.xcell.GTManager.model.tables.Person;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +20,16 @@ public class HouseholdService {
 
     private final HouseholdRepository householdRepo;
     private final DimHouseholdRepository dimRepo;
+    private final PersonRepository personRepo;
 
-    public HouseholdService(HouseholdRepository householdRepo, DimHouseholdRepository dimRepo) {
+    public HouseholdService(
+            HouseholdRepository householdRepo,
+            DimHouseholdRepository dimRepo,
+            PersonRepository personRepo
+    ) {
         this.householdRepo = householdRepo;
         this.dimRepo = dimRepo;
+        this.personRepo = personRepo;
     }
 
     private void createNewHistoryRecord(Household h) {
@@ -72,11 +80,19 @@ public class HouseholdService {
     public List<HouseholdHistoryDto> getHistory(Integer id) {
         return dimRepo.findAll().stream()
                 .filter(d -> d.getHouseholdId().equals(id))
-                .map(d -> HouseholdHistoryDto.fromEntity(d))
+                .map(HouseholdHistoryDto::fromEntity)
                 .toList();
     }
 
     public List<HouseholdDto> getAll(){
         return householdRepo.findAll().stream().map(HouseholdDto::fromEntity).toList();
+    }
+
+    public long getMemberCount(Integer householdId){
+        return personRepo.countByHouseholdHouseholdId(householdId);
+    }
+
+    public List<Person> getMembers(Integer householdId){
+        return personRepo.findByHouseholdHouseholdId(householdId);
     }
 }

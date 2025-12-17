@@ -63,6 +63,7 @@
                     <td class="cell-num" th:text="${h.beeFamilies}"></td>
                     <td class="cell-num" th:text="${h.otherAnimals}"></td>
                     <td class="cell-actions">
+                        <a th:href="@{/households/{id}(id=${h.householdId})}">View</a>
                         <a th:href="@{/households/{id}/edit(id=${h.householdId})}">Edit</a>
 
                         <form class="inline"

@@ -53,4 +53,13 @@ public class HouseholdController {
         householdService.delete(id);
         return "redirect:/households";
     }
+
+    @GetMapping("/{id}")
+    public String details(@PathVariable Integer id, Model model){
+        model.addAttribute("household", householdService.getCurrent(id));
+        model.addAttribute("memberCount", householdService.getMemberCount(id));
+        model.addAttribute("members", householdService.getMembers(id));
+        model.addAttribute("history", householdService.getHistory(id));
+        return "households/details";
+    }
 }
