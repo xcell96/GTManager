@@ -26,23 +26,24 @@ public class HouseholdHistoryDto {
 
     public static HouseholdHistoryDto fromEntity(DimHousehold h) {
         HouseholdHistoryDto dto = new HouseholdHistoryDto();
-        dto.householdId = h.getHouseholdId();
-        dto.address = h.getAddress();
-        dto.surface = h.getSurface();
 
-        dto.cattle = h.getCattle();
-        dto.swine = h.getSwine();
-        dto.sheep = h.getSheep();
-        dto.goats = h.getGoats();
-        dto.equines = h.getEquines();
-        dto.poultry = h.getPoultry();
-        dto.rabbits = h.getRabbits();
-        dto.donkeys = h.getDonkeys();
-        dto.beeFamilies = h.getBeeFamilies();
-        dto.otherAnimals = h.getOtherAnimals();
-
-        dto.validFrom = h.getValidFrom();
-        dto.validTo = h.getValidTo();
+        DtoMapper.apply(
+                () -> dto.householdId = h.getHouseholdId(),
+                () -> dto.address = h.getAddress(),
+                () -> dto.surface = h.getSurface(),
+                () -> dto.cattle = h.getCattle(),
+                () -> dto.swine = h.getSwine(),
+                () -> dto.sheep = h.getSheep(),
+                () -> dto.goats = h.getGoats(),
+                () -> dto.equines = h.getEquines(),
+                () -> dto.poultry = h.getPoultry(),
+                () -> dto.rabbits = h.getRabbits(),
+                () -> dto.donkeys = h.getDonkeys(),
+                () -> dto.beeFamilies = h.getBeeFamilies(),
+                () -> dto.otherAnimals = h.getOtherAnimals(),
+                () -> dto.validFrom = h.getValidFrom(),
+                () -> dto.validTo = h.getValidTo()
+        );
 
         return dto;
     }

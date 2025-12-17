@@ -35,24 +35,21 @@ public class PersonDto {
     public static PersonDto fromEntity(Person p){
         PersonDto dto = new PersonDto();
 
-        dto.personId = p.getPersonId();
-        dto.firstName = p.getFirstName();
-        dto.lastName = p.getLastName();
-        dto.sex = p.getSex();
-        dto.dateOfBirth = p.getDateOfBirth();
-
-        dto.CNP = p.getCNP();
-        dto.citizenship = p.getCitizenship();
-
-        dto.householdId = (p.getHousehold() != null ? p.getHousehold().getHouseholdId() : null);
-
-        dto.kinship = p.getKinship();
-        dto.educationLevel = p.getEducationLevel();
-
-        dto.job = p.getJob();
-        dto.placeOfWork = p.getPlaceOfWork();
-
-        dto.degreesCount = (p.getDegrees() != null ? p.getDegrees().size() : 0);
+        DtoMapper.apply(
+                () -> dto.personId = p.getPersonId(),
+                () -> dto.firstName = p.getFirstName(),
+                () -> dto.lastName = p.getLastName(),
+                () -> dto.sex = p.getSex(),
+                () -> dto.dateOfBirth = p.getDateOfBirth(),
+                () -> dto.CNP = p.getCNP(),
+                () -> dto.citizenship = p.getCitizenship(),
+                () -> dto.householdId = (p.getHousehold() != null ? p.getHousehold().getHouseholdId() : null),
+                () -> dto.kinship = p.getKinship(),
+                () -> dto.educationLevel = p.getEducationLevel(),
+                () -> dto.job = p.getJob(),
+                () -> dto.placeOfWork = p.getPlaceOfWork(),
+                () -> dto.degreesCount = (p.getDegrees() != null ? p.getDegrees().size() : 0)
+        );
 
         return dto;
     }

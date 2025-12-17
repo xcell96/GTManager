@@ -34,25 +34,22 @@ public class PersonHistoryDto {
     public static PersonHistoryDto fromEntity(DimPerson p) {
         PersonHistoryDto dto = new PersonHistoryDto();
 
-        dto.personId = p.getPersonId();
-        dto.firstName = p.getFirstName();
-        dto.lastName = p.getLastName();
-        dto.sex = p.getSex();
-        dto.dateOfBirth = p.getDateOfBirth();
-
-        dto.CNP = p.getCNP();
-        dto.citizenship = p.getCitizenship();
-
-        dto.kinship = p.getKinship();
-        dto.educationLevel = p.getEducationLevel();
-
-        dto.job = p.getJob();
-        dto.placeOfWork = p.getPlaceOfWork();
-
-        dto.householdSk = (p.getHousehold() != null ? p.getHousehold().getHouseholdSk() : null);
-
-        dto.validFrom = p.getValidFrom();
-        dto.validTo = p.getValidTo();
+        DtoMapper.apply(
+                () -> dto.personId = p.getPersonId(),
+                () -> dto.firstName = p.getFirstName(),
+                () -> dto.lastName = p.getLastName(),
+                () -> dto.sex = p.getSex(),
+                () -> dto.dateOfBirth = p.getDateOfBirth(),
+                () -> dto.CNP = p.getCNP(),
+                () -> dto.citizenship = p.getCitizenship(),
+                () -> dto.kinship = p.getKinship(),
+                () -> dto.educationLevel = p.getEducationLevel(),
+                () -> dto.job = p.getJob(),
+                () -> dto.placeOfWork = p.getPlaceOfWork(),
+                () -> dto.householdSk = (p.getHousehold() != null ? p.getHousehold().getHouseholdSk() : null),
+                () -> dto.validFrom = p.getValidFrom(),
+                () -> dto.validTo = p.getValidTo()
+        );
 
         return dto;
     }
