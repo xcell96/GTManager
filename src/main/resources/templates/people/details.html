@@ -12,10 +12,7 @@
 <div class="wrap wrap-wide">
   <div class="toolbar">
     <div>
-      <h1>
-        Person #
-        <a th:href="@{/people/{id}(id=${person.personId})}" th:text="${person.personId}"></a>
-      </h1>
+      <h1 th:text="'Person #' + ${person.personId}"></h1>
       <p class="muted">
         <span th:text="${person.firstName + ' ' + person.lastName}"></span>
         <span> • Household: </span>
@@ -33,6 +30,33 @@
       <a class="btn" th:href="@{/people}">Back</a>
       <a class="btn" th:href="@{/}">Home</a>
       <a class="btn btn-primary" th:href="@{/people/{id}/edit(id=${person.personId})}">Edit</a>
+      <a class="btn btn-primary" th:href="@{/people/{id}/degrees/new(id=${person.personId})}">Add degree</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom: 16px;">
+    <h2 style="margin: 0 0 12px;">Degrees</h2>
+
+    <div class="table-wrap">
+      <table style="min-width: 760px;">
+        <tr>
+          <th>Title</th>
+          <th>Institution</th>
+          <th>Graduation year</th>
+          <th>Awarded at</th>
+        </tr>
+
+        <tr th:each="d : ${degrees}">
+          <td th:text="${d.title}"></td>
+          <td th:text="${d.institution}"></td>
+          <td class="cell-num" th:text="${d.graduationYear}"></td>
+          <td th:text="${d.awardedAt}"></td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(degrees)}">
+          <td colspan="4" class="muted">No degrees recorded for this person.</td>
+        </tr>
+      </table>
     </div>
   </div>
 

@@ -3,8 +3,11 @@ package com.xcell.GTManager.model.services;
 import com.xcell.GTManager.model.repositories.DegreeRepository;
 import com.xcell.GTManager.model.repositories.PersonRepository;
 import com.xcell.GTManager.model.tables.Degree;
+import com.xcell.GTManager.model.tables.Person;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 
 @Component
@@ -19,12 +22,12 @@ public class DegreeService {
         this.personRepo = personRepo;
     }
 
-    public void create(Degree d) {
-        if(degreeRepo.existsById(d.getDegreeId()))
-            throw new IllegalArgumentException("Degree with ID " + d.getDegreeId() + " already exists");
+    public void createForPerson(Integer personId, Degree d) {
+        if (d.getDegreeId() != null)
+            throw new IllegalArgumentException("Degree IDs are automatically generated.");
 
-        if(!personRepo.existsById(d.getPerson().getPersonId()))
-            throw new IllegalArgumentException("Person with ID " + d.getPerson().getPersonId() + " doesn't exist");
+        Person p = personRepo.findById(personId).orElseThrow();
+        d.setPerson(p);
 
         degreeRepo.saveAndFlush(d);
     }
@@ -43,5 +46,9 @@ public class DegreeService {
 
     public void delete(Integer id) {
         degreeRepo.deleteById(id);
+    }
+
+    public List<Degree> getForPerson(Integer personId) {
+        return degreeRepo.findByPersonPersonIdOrderByAwardedAtDesc(personId);
     }
 }

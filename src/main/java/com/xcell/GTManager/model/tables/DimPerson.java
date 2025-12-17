@@ -161,4 +161,5 @@ public class DimPerson {
     public LocalDateTime getValidTo() {
         return validTo;
     }
+    public void setValidTo(LocalDateTime validTo) { this.validTo = validTo; }
 }

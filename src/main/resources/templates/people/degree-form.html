@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+  <title>GTManager - Add Degree</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div>
+      <h1 th:text="'Add degree for Person #' + ${person.personId}"></h1>
+      <p class="muted" th:text="${person.firstName + ' ' + person.lastName}"></p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" th:href="@{/people/{id}(id=${person.personId})}">Back</a>
+      <a class="btn" th:href="@{/people}">People</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <form th:action="@{${formAction}}" th:object="${degree}" method="post">
+      <div class="form-grid">
+        <div class="field span-2">
+          <label for="title">Title</label>
+          <input class="input" id="title" type="text" th:field="*{title}" required />
+        </div>
+
+        <div class="field span-2">
+          <label for="institution">Institution</label>
+          <input class="input" id="institution" type="text" th:field="*{institution}" />
+        </div>
+
+        <div class="field">
+          <label for="graduationYear">Graduation year</label>
+          <input class="input" id="graduationYear" type="number" th:field="*{graduationYear}" />
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <a class="btn" th:href="@{/people/{id}(id=${person.personId})}">Cancel</a>
+        <button class="btn btn-primary" type="submit">Save degree</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

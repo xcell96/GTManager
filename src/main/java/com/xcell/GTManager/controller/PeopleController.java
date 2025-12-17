@@ -7,6 +7,7 @@ import com.xcell.GTManager.enums.ESex;
 import com.xcell.GTManager.model.services.DegreeService;
 import com.xcell.GTManager.model.services.HouseholdService;
 import com.xcell.GTManager.model.services.PeopleService;
+import com.xcell.GTManager.model.tables.Degree;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -79,7 +80,22 @@ public class PeopleController {
     public String details(@PathVariable Integer id, Model model){
         model.addAttribute("person", peopleService.getCurrent(id));
         model.addAttribute("history", peopleService.getHistory(id));
+        model.addAttribute("degrees", degreeService.getForPerson(id));
         return "people/details";
+    }
+
+    @GetMapping("/{id}/degrees/new")
+    public String createDegreeForm(@PathVariable Integer id, Model model){
+        model.addAttribute("person", peopleService.getCurrent(id));
+        model.addAttribute("degree", new Degree());
+        model.addAttribute("formAction", "/people/" + id + "/degrees");
+        return "people/degree-form";
+    }
+
+    @PostMapping("/{id}/degrees")
+    public String createDegree(@PathVariable Integer id, @ModelAttribute("degree") Degree degree){
+        degreeService.createForPerson(id, degree);
+        return "redirect:/people/" + id;
     }
 
 }
