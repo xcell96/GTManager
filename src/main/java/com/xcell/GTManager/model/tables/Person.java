@@ -78,20 +78,6 @@ public class Person {
     )
     private Set<Degree> degrees = new HashSet<>();
 
-    public void copyFrom(Person other) {
-        this.firstName = other.firstName;
-        this.lastName = other.lastName;
-        this.sex = other.sex;
-        this.dateOfBirth = other.dateOfBirth;
-        this.CNP = other.CNP;
-        this.citizenship = other.citizenship;
-        this.household = other.household;
-        this.kinship = other.kinship;
-        this.educationLevel = other.educationLevel;
-        this.job = other.job;
-        this.placeOfWork = other.placeOfWork;
-    }
-
     public Integer getPersonId() {
         return personId;
     }

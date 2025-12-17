@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+  <title>GTManager - Person Details</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap wrap-wide">
+  <div class="toolbar">
+    <div>
+      <h1>
+        Person #
+        <a th:href="@{/people/{id}(id=${person.personId})}" th:text="${person.personId}"></a>
+      </h1>
+      <p class="muted">
+        <span th:text="${person.firstName + ' ' + person.lastName}"></span>
+        <span> • Household: </span>
+        <strong>
+          <a th:if="${person.householdId != null}"
+             th:href="@{/households/{id}(id=${person.householdId})}"
+             th:text="${person.householdId}"></a>
+          <span th:if="${person.householdId == null}">—</span>
+        </strong>
+        <span> • Degrees: </span><strong th:text="${person.degreesCount}"></strong>
+      </p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" th:href="@{/people}">Back</a>
+      <a class="btn" th:href="@{/}">Home</a>
+      <a class="btn btn-primary" th:href="@{/people/{id}/edit(id=${person.personId})}">Edit</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 style="margin: 0 0 12px;">History</h2>
+
+    <div class="table-wrap">
+      <table style="min-width: 1100px;">
+        <tr>
+          <th>Valid from</th>
+          <th>Valid to</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Sex</th>
+          <th>DOB</th>
+          <th>Citizenship</th>
+          <th>Kinship</th>
+          <th>Education</th>
+          <th>Job</th>
+          <th>Place of work</th>
+          <th>Household SK</th>
+        </tr>
+
+        <tr th:each="h : ${history}">
+          <td th:text="${h.validFrom}"></td>
+          <td th:text="${h.validTo}"></td>
+          <td th:text="${h.firstName}"></td>
+          <td th:text="${h.lastName}"></td>
+          <td th:text="${h.sex}"></td>
+          <td th:text="${h.dateOfBirth}"></td>
+          <td th:text="${h.citizenship}"></td>
+          <td th:text="${h.kinship}"></td>
+          <td th:text="${h.educationLevel}"></td>
+          <td th:text="${h.job}"></td>
+          <td th:text="${h.placeOfWork}"></td>
+          <td class="cell-num" th:text="${h.householdSk}"></td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(history)}">
+          <td colspan="12" class="muted">No history records found for this person.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

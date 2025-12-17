@@ -12,7 +12,10 @@
 <div class="wrap wrap-wide">
     <div class="toolbar">
         <div>
-            <h1 th:text="'Household #' + ${household.householdId}"></h1>
+            <h1>
+                Household #
+                <a th:href="@{/households/{id}(id=${household.householdId})}" th:text="${household.householdId}"></a>
+            </h1>
             <p class="muted">
                 <span th:text="${household.address}"></span>
                 <span> • Members: </span><strong th:text="${memberCount}"></strong>
@@ -39,7 +42,9 @@
                 </tr>
 
                 <tr th:each="p : ${members}">
-                    <td th:text="${p.personId}"></td>
+                    <td>
+                        <a th:href="@{/people/{id}(id=${p.personId})}" th:text="${p.personId}"></a>
+                    </td>
                     <td th:text="${p.firstName}"></td>
                     <td th:text="${p.lastName}"></td>
                     <td th:text="${p.kinship}"></td>

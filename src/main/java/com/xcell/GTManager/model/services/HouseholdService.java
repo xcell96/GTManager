@@ -2,12 +2,12 @@ package com.xcell.GTManager.model.services;
 
 import com.xcell.GTManager.dto.HouseholdDto;
 import com.xcell.GTManager.dto.HouseholdHistoryDto;
+import com.xcell.GTManager.dto.PersonDto;
 import com.xcell.GTManager.model.repositories.DimHouseholdRepository;
 import com.xcell.GTManager.model.repositories.HouseholdRepository;
 import com.xcell.GTManager.model.repositories.PersonRepository;
 import com.xcell.GTManager.model.tables.DimHousehold;
 import com.xcell.GTManager.model.tables.Household;
-import com.xcell.GTManager.model.tables.Person;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -41,20 +41,38 @@ public class HouseholdService {
         dimRepo.save(d);
     }
 
-    public void create(Household h) {
-        if(h.getHouseholdId() != null)
+    private void applyDto(Household target, HouseholdDto dto) {
+        target.setAddress(dto.getAddress());
+        target.setSurface(dto.getSurface());
+        target.setCattle(dto.getCattle());
+        target.setSwine(dto.getSwine());
+        target.setSheep(dto.getSheep());
+        target.setGoats(dto.getGoats());
+        target.setEquines(dto.getEquines());
+        target.setPoultry(dto.getPoultry());
+        target.setRabbits(dto.getRabbits());
+        target.setDonkeys(dto.getDonkeys());
+        target.setBeeFamilies(dto.getBeeFamilies());
+        target.setOtherAnimals(dto.getOtherAnimals());
+    }
+
+    public void create(HouseholdDto dto) {
+        if(dto.getHouseholdId() != null)
             throw new IllegalArgumentException("Household IDs are automatically generated.");
+
+        Household h = new Household();
+        applyDto(h, dto);
 
         Household saved = householdRepo.saveAndFlush(h);
         createNewHistoryRecord(saved);
     }
 
-    public void update(Integer id, Household newData){
+    public void update(Integer id, HouseholdDto dto){
         if(!householdRepo.existsById(id))
             throw new IllegalArgumentException("Household with ID " + id + " doesn't exist");
 
         Household h = householdRepo.findById(id).orElseThrow();
-        h.copyFrom(newData);
+        applyDto(h, dto);
         householdRepo.save(h);
 
         DimHousehold prev = dimRepo.findByHouseholdIdAndValidToIsNull(id).orElseThrow();
@@ -92,7 +110,9 @@ public class HouseholdService {
         return personRepo.countByHouseholdHouseholdId(householdId);
     }
 
-    public List<Person> getMembers(Integer householdId){
-        return personRepo.findByHouseholdHouseholdId(householdId);
+    public List<PersonDto> getMembers(Integer householdId){
+        return personRepo.findByHouseholdHouseholdId(householdId).stream()
+                .map(PersonDto::fromEntity)
+                .toList();
     }
 }

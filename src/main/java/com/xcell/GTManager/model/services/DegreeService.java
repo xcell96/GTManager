@@ -26,7 +26,7 @@ public class DegreeService {
         if(!personRepo.existsById(d.getPerson().getPersonId()))
             throw new IllegalArgumentException("Person with ID " + d.getPerson().getPersonId() + " doesn't exist");
 
-        degreeRepo.save(d);
+        degreeRepo.saveAndFlush(d);
     }
 
     public void update(Integer id, Degree newData){

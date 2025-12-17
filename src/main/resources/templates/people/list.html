@@ -23,6 +23,8 @@
       <form class="inline" th:action="@{/logout}" method="post">
         <button class="btn" type="submit">Logout</button>
       </form>
+
+      <a class="btn btn-primary" th:href="@{/people/new}">Create new</a>
     </div>
   </div>
 
@@ -42,21 +44,40 @@
           <th>Job</th>
           <th>Place of Work</th>
           <th>Degrees</th>
+          <th>Actions</th>
         </tr>
 
         <tr th:each="p : ${people}">
-          <td th:text="${p.personId}"></td>
+          <td>
+            <a th:href="@{/people/{id}(id=${p.personId})}" th:text="${p.personId}"></a>
+          </td>
           <td th:text="${p.firstName}"></td>
           <td th:text="${p.lastName}"></td>
           <td th:text="${p.sex}"></td>
           <td th:text="${p.dateOfBirth}"></td>
           <td th:text="${p.citizenship}"></td>
-          <td class="cell-num" th:text="${p.household != null ? p.household.householdId : ''}"></td>
+          <td class="cell-num">
+            <a th:if="${p.householdId != null}"
+               th:href="@{/households/{id}(id=${p.householdId})}"
+               th:text="${p.householdId}"></a>
+            <span th:if="${p.householdId == null}"></span>
+          </td>
           <td th:text="${p.kinship}"></td>
           <td th:text="${p.educationLevel}"></td>
           <td th:text="${p.job}"></td>
           <td th:text="${p.placeOfWork}"></td>
-          <td class="cell-num" th:text="${p.degrees != null ? p.degrees.size() : 0}"></td>
+          <td class="cell-num" th:text="${p.degreesCount}"></td>
+          <td class="cell-actions">
+            <a th:href="@{/people/{id}(id=${p.personId})}">View</a>
+            <a th:href="@{/people/{id}/edit(id=${p.personId})}">Edit</a>
+            <form class="inline" th:action="@{/people/{id}/delete(id=${p.personId})}" method="post">
+              <button class="btn btn-danger" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(people)}">
+          <td colspan="13" class="muted">No people found.</td>
         </tr>
       </table>
     </div>

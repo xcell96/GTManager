@@ -49,7 +49,9 @@
                 </tr>
 
                 <tr th:each="h : ${households}">
-                    <td th:text="${h.householdId}"></td>
+                    <td>
+                        <a th:href="@{/households/{id}(id=${h.householdId})}" th:text="${h.householdId}"></a>
+                    </td>
                     <td th:text="${h.address}"></td>
                     <td class="cell-num" th:text="${h.surface}"></td>
                     <td class="cell-num" th:text="${h.cattle}"></td>

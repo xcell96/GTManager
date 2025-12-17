@@ -1,5 +1,6 @@
 package com.xcell.GTManager.controller;
 
+import com.xcell.GTManager.dto.HouseholdDto;
 import com.xcell.GTManager.model.services.HouseholdService;
 import com.xcell.GTManager.model.tables.Household;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ public class HouseholdController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute Household household) {
+    public String create(@ModelAttribute HouseholdDto household) {
         householdService.create(household);
         return "redirect:/households";
     }
@@ -43,7 +44,7 @@ public class HouseholdController {
     }
 
     @PostMapping("/{id}")
-    public String update(@PathVariable Integer id, @ModelAttribute Household household) {
+    public String update(@PathVariable Integer id, @ModelAttribute HouseholdDto household) {
         householdService.update(id, household);
         return "redirect:/households";
     }

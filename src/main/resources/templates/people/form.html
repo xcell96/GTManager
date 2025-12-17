@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+  <title>GTManager - Person</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="toolbar">
+    <div>
+      <h1>Person</h1>
+      <p class="muted">Household is required (one person → one household).</p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" th:href="@{/people}">Back to list</a>
+      <a class="btn" th:href="@{/}">Home</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <form th:action="@{${formAction}}" th:object="${person}" method="post">
+      <div class="form-grid">
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input class="input" id="firstName" type="text" th:field="*{firstName}" />
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last name</label>
+          <input class="input" id="lastName" type="text" th:field="*{lastName}" />
+        </div>
+
+        <div class="field">
+          <label for="sex">Sex</label>
+          <select class="input" id="sex" th:field="*{sex}">
+            <option value="" th:selected="${person.sex == null}" disabled>Select</option>
+            <option th:each="v : ${sexValues}" th:value="${v}" th:text="${v}"></option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="dateOfBirth">Date of birth</label>
+          <input class="input" id="dateOfBirth" type="date" th:field="*{dateOfBirth}" />
+        </div>
+
+        <div class="field span-2">
+          <label for="CNP">CNP</label>
+          <input class="input" id="CNP" type="text" th:field="*{CNP}" />
+        </div>
+
+        <div class="field span-2">
+          <label for="citizenship">Citizenship</label>
+          <input class="input" id="citizenship" type="text" th:field="*{citizenship}" />
+        </div>
+
+        <div class="field span-2">
+          <label for="householdId">Household (required)</label>
+          <select class="input" id="householdId" th:field="*{householdId}" required>
+            <option value="" disabled th:selected="${person.householdId == null}">Select a household</option>
+            <option th:each="h : ${households}"
+                    th:value="${h.householdId}"
+                    th:text="${'#' + h.householdId + ' - ' + h.address}">
+            </option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="kinship">Kinship</label>
+          <select class="input" id="kinship" th:field="*{kinship}">
+            <option value="" th:selected="${person.kinship == null}" disabled>Select</option>
+            <option th:each="v : ${kinshipValues}" th:value="${v}" th:text="${v}"></option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="educationLevel">Education level</label>
+          <select class="input" id="educationLevel" th:field="*{educationLevel}">
+            <option value="" th:selected="${person.educationLevel == null}">—</option>
+            <option th:each="v : ${educationValues}" th:value="${v}" th:text="${v}"></option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="job">Job</label>
+          <input class="input" id="job" type="text" th:field="*{job}" />
+        </div>
+
+        <div class="field">
+          <label for="placeOfWork">Place of work</label>
+          <input class="input" id="placeOfWork" type="text" th:field="*{placeOfWork}" />
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <a class="btn" th:href="@{/people}">Cancel</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

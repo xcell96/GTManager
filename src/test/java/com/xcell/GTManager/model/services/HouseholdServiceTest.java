@@ -1,5 +1,6 @@
 package com.xcell.GTManager.model.services;
 
+import com.xcell.GTManager.dto.HouseholdDto;
 import com.xcell.GTManager.model.tables.Household;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
@@ -28,7 +29,7 @@ class HouseholdServiceTest {
         h.setSurface(BigDecimal.valueOf(100.0));
         h.setCattle(5);
 
-        householdService.create(h);
+        householdService.create(HouseholdDto.fromEntity(h));
         assertNotNull(h.getHouseholdId());
     }
 
@@ -39,7 +40,7 @@ class HouseholdServiceTest {
         h.setSurface(BigDecimal.valueOf(-100.0));
         h.setCattle(5);
 
-        assertThrows(ConstraintViolationException.class, () -> householdService.create(h));
+        assertThrows(ConstraintViolationException.class, () -> householdService.create(HouseholdDto.fromEntity(h)));
     }
 
     @Test
@@ -49,7 +50,7 @@ class HouseholdServiceTest {
         h.setSurface(BigDecimal.valueOf(100.0));
         h.setCattle(-5);
 
-        assertThrows(ConstraintViolationException.class, () -> householdService.create(h));
+        assertThrows(ConstraintViolationException.class, () -> householdService.create(HouseholdDto.fromEntity(h)));
     }
 
     @Test
