@@ -34,6 +34,10 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
+                .rememberMe(remember -> remember
+                        .key("A_VERY_LONG_AND_RANDOM_SECRET_KEY")
+                        .tokenValiditySeconds(60 * 60 * 24 * 14) // 14 days
+                )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login?logout")
                 );
