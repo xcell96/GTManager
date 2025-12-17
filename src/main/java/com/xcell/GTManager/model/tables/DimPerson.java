@@ -39,9 +39,6 @@ public class DimPerson {
     @Column(name = "education_level")
     private EEducationLevel educationLevel;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Degree> degrees = new ArrayList<>();
-
     private String job;
     @Column(name = "place_of_work")
     private String placeOfWork;
@@ -141,9 +138,6 @@ public class DimPerson {
     public void setEducationLevel(EEducationLevel educationLevel) {
         this.educationLevel = educationLevel;
     }
-
-    public List<Degree> getDegrees() { return degrees; }
-    public void setDegrees(List<Degree> degrees) { this.degrees = degrees; }
 
     public String getJob() {
         return job;

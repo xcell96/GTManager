@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+  <title>GTManager - People</title>
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+
+<div class="wrap wrap-wide">
+  <div class="toolbar">
+    <div>
+      <h1>People</h1>
+      <p class="muted">View people and basic profile data.</p>
+    </div>
+
+    <div class="actions">
+      <a class="btn" th:href="@{/}">Home</a>
+      <a class="btn" th:href="@{/account}">Account</a>
+
+      <form class="inline" th:action="@{/logout}" method="post">
+        <button class="btn" type="submit">Logout</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Sex</th>
+          <th>Date of Birth</th>
+          <th>Citizenship</th>
+          <th>Household ID</th>
+          <th>Kinship</th>
+          <th>Education</th>
+          <th>Job</th>
+          <th>Place of Work</th>
+          <th>Degrees</th>
+        </tr>
+
+        <tr th:each="p : ${people}">
+          <td th:text="${p.personId}"></td>
+          <td th:text="${p.firstName}"></td>
+          <td th:text="${p.lastName}"></td>
+          <td th:text="${p.sex}"></td>
+          <td th:text="${p.dateOfBirth}"></td>
+          <td th:text="${p.citizenship}"></td>
+          <td class="cell-num" th:text="${p.household != null ? p.household.householdId : ''}"></td>
+          <td th:text="${p.kinship}"></td>
+          <td th:text="${p.educationLevel}"></td>
+          <td th:text="${p.job}"></td>
+          <td th:text="${p.placeOfWork}"></td>
+          <td class="cell-num" th:text="${p.degrees != null ? p.degrees.size() : 0}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

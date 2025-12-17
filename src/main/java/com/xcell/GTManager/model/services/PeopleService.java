@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -29,7 +30,6 @@ public class PeopleService {
         DimPerson d = new DimPerson();
         d.copyFrom(p);
 
-        //household?
         DimHousehold h = dimHouseholdRepo.findByHouseholdIdAndValidToIsNull(p.getHousehold().getHouseholdId()).orElseThrow();
         d.setHousehold(h);
 
@@ -68,5 +68,9 @@ public class PeopleService {
         DimPerson last = dimRepo.findByPersonIdAndValidToIsNull(id).orElseThrow();
         last.setValidTo(LocalDateTime.now());
         dimRepo.save(last);
+    }
+
+    public List<Person> getAll(){
+        return personRepo.findAll();
     }
 }

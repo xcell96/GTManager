@@ -25,6 +25,8 @@ import com.xcell.GTManager.enums.ESex;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "People")
@@ -67,6 +69,14 @@ public class Person {
 
     @Column(name = "place_of_work")
     private String placeOfWork;
+
+    @OneToMany(
+            mappedBy = "person",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<Degree> degrees = new HashSet<>();
 
     public void copyFrom(Person other) {
         this.firstName = other.firstName;
@@ -164,5 +174,15 @@ public class Person {
     }
     public void setPlaceOfWork(String placeOfWork) {
         this.placeOfWork = placeOfWork;
+    }
+
+    public Set<Degree> getDegrees() { return degrees; }
+    public void addDegree(Degree degree) {
+        degrees.add(degree);
+        degree.setPerson(this);
+    }
+    public void removeDegree(Degree degree) {
+        degrees.remove(degree);
+        degree.setPerson(null);
     }
 }

@@ -2,6 +2,8 @@ package com.xcell.GTManager.model.tables;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Degrees")
 public class Degree {
@@ -10,9 +12,9 @@ public class Degree {
     @Column(name = "degree_id", unique = true)
     private Integer degreeId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false)
-    private DimPerson person;
+    private Person person;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -22,6 +24,15 @@ public class Degree {
 
     @Column(name = "graduation_year")
     private Integer graduationYear;
+
+    @Column(name = "awarded_at", nullable = false, updatable = false)
+    private LocalDateTime awardedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        if(awardedAt == null)
+            awardedAt = LocalDateTime.now();
+    }
 
     public void copyFrom(Degree other) {
         this.person = other.person;
@@ -34,10 +45,10 @@ public class Degree {
         return degreeId;
     }
 
-    public DimPerson getPerson() {
+    public Person getPerson() {
         return person;
     }
-    public void setPerson(DimPerson person) {
+    public void setPerson(Person person) {
         this.person = person;
     }
 
@@ -61,4 +72,6 @@ public class Degree {
     public void setGraduationYear(Integer graduationYear) {
         this.graduationYear = graduationYear;
     }
+
+    public LocalDateTime getAwardedAt() { return awardedAt; }
 }
