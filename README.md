@@ -11,8 +11,34 @@ Se solicita un sistem de management al datelor a mai multor gospodarii taranesti
 * salvarea datelor precedente in urma modificarilor
 * implementarea conturilor de utilizatori
 
-## Arhitectura (WIP)
-MVC
+### To do / fix:
+* adaugarea barelor de cautare
+* diplomele nu trebuie sa poata fi acordate in viitor
+* data acordarii diplomelor nu trebuie sa fie cea la care au fost adaugate in baza de date
+* adaugarea unui sistem de logare
+* ID-urile in tabelele temporale pot arata catre gospodarii sau oameni inexistenti
+* starea diplomelor nu poate fi vizualizata in inregistrari din trecut
+
+## Arhitectura
+Aplicatia foloseste arhitectura MVCS (Model-View-Controller-Service).
+
+### Baza de date
+Baza de date este un container Docker de MariaDB, cu un user si o parola specificate si la care aplicatia se conecteaza cu ajutorul driverului JDBC.
+
+### Model
+Tabelele de date sunt create cu ajutorul standardelor Jakarta EE si conflictele de numire intre tabele sunt rezolvate de Hibernate.
+
+### Repositories
+Repozitoarele extind interfata Repository din JPA si implementeaza metodele CRUD pentru fiecare tabel din baza de date in mod automat. Metode cu query-uri speciale sunt implementate cu ajutorul mecanismului Spring Data JPA.
+
+### Services
+Serviciile folosesc repozitoriile pentru a efectua operatii CRUD asupra bazei de date, dar si pentru operatii mai complexe. Transmiterea datelor se face prin intermediul obiectelor DTO.
+
+### Controleri
+Controlerii sunt responsabili pentru a gestiona cererile HTTP. Solicita date de la servicii, le impacheteaza corespunzator si le transmite la view-uri.
+
+### View
+Pagini simple HTML decorate cu CSS. Datele solicitate sunt injectate cu Thymeleaf.
 
 ### Schema bazei de date
 ```
