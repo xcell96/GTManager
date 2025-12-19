@@ -13,12 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST controller responsible for managing the People table.
+ * REST controller responsible for managing the People table ({@link com.xcell.GTManager.model.tables.Person}).
  * <p>
  * Exposes endpoints for creating, deleting, retrieving and modifying records.
- * Uses the PeopleService to perform CRUD operations.
- * Uses the DegreeService to add or remove degrees from people.
- * Uses the HouseholdService to populate the dropdown list of households in the creation/editing form.
+ * Uses the {@link PeopleService} to perform CRUD operations.
+ * Uses the {@link DegreeService} to add or remove degrees from people.
+ * Uses the {@link HouseholdService} to populate the dropdown list of households in the creation/editing form.
  */
 @Controller
 @RequestMapping("/people")

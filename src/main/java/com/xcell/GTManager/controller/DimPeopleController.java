@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * REST controller responsible for strictly viewing the historical records of people.
+ * REST controller responsible for strictly viewing the historical records of people ({@link com.xcell.GTManager.model.tables.DimPerson}).
  * <p>
- * Uses the DimPeopleService to perform data access operations.
+ * Uses the {@link DimPeopleService} to perform data access operations.
  */
 @Controller
 @RequestMapping("/dimpeople")

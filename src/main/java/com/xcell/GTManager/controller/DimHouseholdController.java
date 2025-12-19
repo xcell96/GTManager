@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * REST controller responsible for strictly viewing historical records of households.
+ * REST controller responsible for strictly viewing historical records of households ({@link com.xcell.GTManager.model.tables.DimHousehold}).
  * <p>
- * Uses the DimHouseholdService to perform data access operations.
+ * Uses the {@link DimHouseholdService} to perform data access operations.
  */
 @Controller
 @RequestMapping("/dimhouseholds")

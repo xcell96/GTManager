@@ -8,10 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST controller responsible for managing the Households table.
+ * REST controller responsible for managing the {@link Household} table.
  * <p>
  * Exposes endpoints for creating, deleting, retrieving and modifying records.
- * Uses the HouseholdService to perform CRUD operations.
+ * Uses the {@link HouseholdService} to perform CRUD operations.
  */
 @Controller
 @RequestMapping("/households")
