@@ -5,6 +5,9 @@ import com.xcell.GTManager.model.tables.DimHousehold;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Data Transfer Object for the {@link DimHousehold} entity.
+ */
 public class HouseholdHistoryDto {
     public Integer householdSk;
     public Integer householdId;
@@ -25,6 +28,13 @@ public class HouseholdHistoryDto {
     public LocalDateTime validFrom;
     public LocalDateTime validTo;
 
+    /**
+     * Creates a new HouseholdHistoryDto from the given {@link DimHousehold} entity.
+     * Uses the {@link DtoMapper} to map the entity's fields to the DTO's.
+     *
+     * @param h the {@link DimHousehold} entity to map from
+     * @return a new HouseholdHistoryDto populated with the entity's data
+     */
     public static HouseholdHistoryDto fromEntity(DimHousehold h) {
         HouseholdHistoryDto dto = new HouseholdHistoryDto();
 

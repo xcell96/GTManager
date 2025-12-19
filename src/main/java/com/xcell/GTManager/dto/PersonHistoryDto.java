@@ -8,30 +8,40 @@ import com.xcell.GTManager.model.tables.DimPerson;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * A Data Transfer Object for the {@link DimPerson} entity.
+ */
 public class PersonHistoryDto {
 
-    private Integer personSk;
-    private Integer personId;
+    public Integer personSk;
+    public Integer personId;
 
-    private String firstName;
-    private String lastName;
-    private ESex sex;
-    private LocalDate dateOfBirth;
+    public String firstName;
+    public String lastName;
+    public ESex sex;
+    public LocalDate dateOfBirth;
 
-    private String CNP;
-    private String citizenship;
+    public String CNP;
+    public String citizenship;
 
-    private EKinship kinship;
-    private EEducationLevel educationLevel;
+    public EKinship kinship;
+    public EEducationLevel educationLevel;
 
-    private String job;
-    private String placeOfWork;
+    public String job;
+    public String placeOfWork;
 
-    private Integer householdSk;
+    public Integer householdSk;
 
-    private LocalDateTime validFrom;
-    private LocalDateTime validTo;
+    public LocalDateTime validFrom;
+    public LocalDateTime validTo;
 
+    /**
+     * Creates a new PersonHistoryDto from the given {@link DimPerson} entity.
+     * Uses the {@link DtoMapper} to map the entity's fields to the DTO's.
+     *
+     * @param p the {@link DimPerson} entity to map from
+     * @return a new PersonHistoryDto populated with the entity's data
+     */
     public static PersonHistoryDto fromEntity(DimPerson p) {
         PersonHistoryDto dto = new PersonHistoryDto();
 
@@ -55,20 +65,4 @@ public class PersonHistoryDto {
 
         return dto;
     }
-
-    public Integer getPersonSk() { return personSk; }
-    public Integer getPersonId() { return personId; }
-    public String getFirstName() { return firstName; }
-    public String getLastName() { return lastName; }
-    public ESex getSex() { return sex; }
-    public LocalDate getDateOfBirth() { return dateOfBirth; }
-    public String getCNP() { return CNP; }
-    public String getCitizenship() { return citizenship; }
-    public EKinship getKinship() { return kinship; }
-    public EEducationLevel getEducationLevel() { return educationLevel; }
-    public String getJob() { return job; }
-    public String getPlaceOfWork() { return placeOfWork; }
-    public Integer getHouseholdSk() { return householdSk; }
-    public LocalDateTime getValidFrom() { return validFrom; }
-    public LocalDateTime getValidTo() { return validTo; }
 }

@@ -7,6 +7,9 @@ import com.xcell.GTManager.model.tables.Person;
 
 import java.time.LocalDate;
 
+/**
+ * A Data Transfer Object for the {@link Person} entity.
+ */
 public class PersonDto {
     private Integer personId;
 
@@ -31,6 +34,13 @@ public class PersonDto {
 
     public PersonDto() {}
 
+    /**
+     * Creates a new PersonDto from the given {@link Person} entity.
+     * Uses the {@link DtoMapper} to map the entity's fields to the DTO's.
+     *
+     * @param p the {@link Person} entity to map from
+     * @return a new PersonDto populated with the entity's data
+     */
     public static PersonDto fromEntity(Person p){
         PersonDto dto = new PersonDto();
 
@@ -54,41 +64,16 @@ public class PersonDto {
     }
 
     public Integer getPersonId() { return personId; }
-    public void setPersonId(Integer personId) { this.personId = personId; }
-
     public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
     public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-
     public ESex getSex() { return sex; }
-    public void setSex(ESex sex) { this.sex = sex; }
-
     public LocalDate getDateOfBirth() { return dateOfBirth; }
-    public void setDateOfBirth(LocalDate dateOfBirth) { this.dateOfBirth = dateOfBirth; }
-
     public String getCNP() { return CNP; }
-    public void setCNP(String CNP) { this.CNP = CNP; }
-
     public String getCitizenship() { return citizenship; }
-    public void setCitizenship(String citizenship) { this.citizenship = citizenship; }
-
     public Integer getHouseholdId() { return householdId; }
-    public void setHouseholdId(Integer householdId) { this.householdId = householdId; }
-
     public EKinship getKinship() { return kinship; }
-    public void setKinship(EKinship kinship) { this.kinship = kinship; }
-
     public EEducationLevel getEducationLevel() { return educationLevel; }
-    public void setEducationLevel(EEducationLevel educationLevel) { this.educationLevel = educationLevel; }
-
     public String getJob() { return job; }
-    public void setJob(String job) { this.job = job; }
-
     public String getPlaceOfWork() { return placeOfWork; }
-    public void setPlaceOfWork(String placeOfWork) { this.placeOfWork = placeOfWork; }
-
     public Integer getDegreesCount() { return degreesCount; }
-    public void setDegreesCount(Integer degreesCount) { this.degreesCount = degreesCount; }
 }
