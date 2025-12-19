@@ -12,16 +12,36 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Configures application-wide security settings.
+ * <p>
+ * Defines authentication requirements, public endpoints (for resource access), login behavior,
+ * session persistence and user identity management.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    /**
+     * Endpoints that are publicly accessible without authentication.
+     */
     private final String[] AUTH_WHITELIST = {
             "/login",
             "/css/**",
             "/favicon.png"
     };
 
+    /**
+     * Configures the HTTP security filter chain.
+     * <p>
+     * All requests require authentication except those specifically whitelisted in {@link #AUTH_WHITELIST}.
+     * Authentication is handled via a custom login page with form-based login.
+     * Remember-me support is enabled to persist authentication across browser sessions.
+     *
+     * @param http the HTTP security configuration
+     * @return the configured security filter chain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -44,11 +64,24 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Provides the password encoder to use for hashing passwords.
+     * @return a BCrypt password encoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configures the user details service for authentication.
+     * <p>
+     * Uses an in-memory store with a single user named "admin" with password "admin"
+     * intended for development purposes only.
+     *
+     * @param encoder the password encoder used to hash stored passwords
+     * @return the configured user details service
+     */
     @Bean
     public UserDetailsService users(PasswordEncoder encoder) {
         UserDetails user = User.builder()
