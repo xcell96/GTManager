@@ -9,7 +9,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+/**
+ * Provides business logic for managing {@link Degree} entities.
+ * <p>
+ * This service ensures that a degree is always associated with one and only one person.
+ * This service uses the {@link DegreeRepository} to create, delete and retrieve degrees for a specific person
+ * and the {@link PersonRepository} to retrieve the person associated with a specific degree.
+ */
 @Component
 @Transactional
 public class DegreeService {
@@ -22,7 +28,17 @@ public class DegreeService {
         this.personRepo = personRepo;
     }
 
-    public void createForPerson(Integer personId, Degree d) {
+    /**
+     * Creates a new degree for a specific person.
+     * <p>
+     * The degree must not already have an ID, as IDs are generated automatically.
+     * The degree is associated with the person identified by {@code personId}.
+     *
+     * @param personId the ID of the person to associate the degree with
+     * @param d the degree to create
+     * @throws IllegalArgumentException if the degree already has an ID
+     */
+    public void createForPerson(Integer personId, Degree d) throws IllegalArgumentException{
         if (d.getDegreeId() != null)
             throw new IllegalArgumentException("Degree IDs are automatically generated.");
 
@@ -32,22 +48,19 @@ public class DegreeService {
         degreeRepo.saveAndFlush(d);
     }
 
-    public void update(Integer id, Degree newData){
-        if(!degreeRepo.existsById(id))
-            throw new IllegalArgumentException("Degree with ID " + id + " doesn't exist");
-
-        if(!personRepo.existsById(newData.getPerson().getPersonId()))
-            throw new IllegalArgumentException("Person with ID " + newData.getPerson().getPersonId() + " doesn't exist");
-
-        Degree d = degreeRepo.findById(id).orElseThrow();
-        d.copyFrom(newData);
-        degreeRepo.save(d);
-    }
-
+    /**
+     * Deletes a degree with the given ID.
+     * @param id the ID of the degree to delete
+     */
     public void delete(Integer id) {
         degreeRepo.deleteById(id);
     }
 
+    /**
+     * Retrieves all degrees for a specific person ordered by award date.
+     * @param personId the ID of the person to retrieve degrees for
+     * @return a list of degrees for the person
+     */
     public List<Degree> getForPerson(Integer personId) {
         return degreeRepo.findByPersonPersonIdOrderByAwardedAtDesc(personId);
     }
