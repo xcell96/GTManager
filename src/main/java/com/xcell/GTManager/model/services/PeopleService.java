@@ -24,6 +24,8 @@ import java.util.List;
  * This service uses the {@link PersonRepository} to perform CRUD operations on people records,
  * the {@link HouseholdRepository} to retrieve household records
  * and the {@link DimHouseholdRepository} to retrieve historical household records.
+ * <p>
+ * TODO: check that the CNP is unique; perhaps use that as a PK in {@link Person}
  */
 @Service
 @Transactional

@@ -8,6 +8,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a historical record for a {@link Person}.
+ * <p>
+ * The {@code personId} column represents the person for which a change occured,
+ * while the {@code personSk} column is the primary key and counts all changes ever.
+ */
 @Entity
 @Table(name = "DimPeople")
 public class DimPerson {
@@ -48,6 +54,10 @@ public class DimPerson {
 
     public DimPerson() {}
 
+    /**
+     * Copies all fields from the given {@link Person} entity.
+     * @param other the Person entity to copy from
+     */
     public void copyFrom(Person other) {
         this.personId = other.getPersonId();
         this.firstName = other.getFirstName();
@@ -72,83 +82,38 @@ public class DimPerson {
     public Integer getPersonSk() {
         return personSk;
     }
-    public void setPersonSk(Integer personSk) {
-        this.personSk = personSk;
-    }
-
     public Integer getPersonId() {
         return personId;
     }
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
-    }
-
     public String getFirstName() {
         return firstName;
     }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public ESex getSex() {
         return sex;
     }
-    public void setSex(ESex sex) {
-        this.sex = sex;
-    }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getCNP() {
         return CNP;
     }
-    public void setCNP(String CNP) {
-        this.CNP = CNP;
-    }
-
     public String getCitizenship() {
         return citizenship;
     }
-    public void setCitizenship(String citizenship) { this.citizenship = citizenship; }
-
     public EKinship getKinship() {
         return kinship;
     }
-    public void setKinship(EKinship kinship) {
-        this.kinship = kinship;
-    }
-
     public EEducationLevel getEducationLevel() {
         return educationLevel;
     }
-    public void setEducationLevel(EEducationLevel educationLevel) {
-        this.educationLevel = educationLevel;
-    }
-
     public String getJob() {
         return job;
     }
-    public void setJob(String job) {
-        this.job = job;
-    }
-
     public String getPlaceOfWork() {
         return placeOfWork;
-    }
-    public void setPlaceOfWork(String placeOfWork) {
-        this.placeOfWork = placeOfWork;
     }
 
     public LocalDateTime getValidFrom() {

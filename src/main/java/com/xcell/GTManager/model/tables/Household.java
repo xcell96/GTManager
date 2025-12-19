@@ -1,28 +1,14 @@
 package com.xcell.GTManager.model.tables;
 
-/*
- * household_id
- * address
- * surface
- *
- * cattle
- * swine
- * sheep
- * goats
- * equines
- * poultry
- * rabbits
- * donkeys
- * bee_families
- * other_animals
- */
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
 
+/**
+ * Represents a household.
+ */
 @Entity
 @Table(name = "Households")
 public class Household {
@@ -80,21 +66,6 @@ public class Household {
     private Integer otherAnimals = 0;
 
     public Household() {}
-
-    public void copyFrom(Household other) {
-        this.address = other.address;
-        this.surface = other.surface;
-        this.cattle = other.cattle;
-        this.swine = other.swine;
-        this.sheep = other.sheep;
-        this.goats = other.goats;
-        this.equines = other.equines;
-        this.poultry = other.poultry;
-        this.rabbits = other.rabbits;
-        this.donkeys = other.donkeys;
-        this.beeFamilies = other.beeFamilies;
-        this.otherAnimals = other.otherAnimals;
-    }
 
     public Integer getHouseholdId() {
         return householdId;

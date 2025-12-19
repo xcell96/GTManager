@@ -1,24 +1,5 @@
 package com.xcell.GTManager.model.tables;
 
-/*
- * person_id
- * first_name
- * last_name
- * sex
- * DOB
- * CNP
- * citizenship
- *
- * household_id (FK)
- * is_head (T/F)
- * kinship
- *
- * education level
- * degree
- * job
- * place_of_work
- */
-
 import com.xcell.GTManager.enums.EEducationLevel;
 import com.xcell.GTManager.enums.EKinship;
 import com.xcell.GTManager.enums.ESex;
@@ -28,6 +9,15 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a person.
+ * <p>
+ * The values {@code sex}, {@code educationLevel} and {@code kinship} are enumerated values.
+ * Each person must be a member of one and only one {@link Household}.
+ * {@code kinship} represents how two people relate to each other. Each household must have one head;
+ * the other members will have their kinship according to their head (i.e. wife, child, parent, cousin, etc.)
+ * The degrees of a person are stored in the {@link Degree} table.
+ */
 @Entity
 @Table(name = "People")
 public class Person {
@@ -163,12 +153,4 @@ public class Person {
     }
 
     public Set<Degree> getDegrees() { return degrees; }
-    public void addDegree(Degree degree) {
-        degrees.add(degree);
-        degree.setPerson(this);
-    }
-    public void removeDegree(Degree degree) {
-        degrees.remove(degree);
-        degree.setPerson(null);
-    }
 }

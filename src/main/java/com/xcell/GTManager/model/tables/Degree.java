@@ -4,6 +4,12 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents an academic degree awarded to a {@link Person}.
+ * <p>
+ * A degree is immutable and is always awarded to one and only one person.
+ * TODO: the {@code awardedAt} time shouldn't be the time it was created, but the time it was actually awarded.
+ */
 @Entity
 @Table(name = "Degrees")
 public class Degree {
@@ -28,17 +34,13 @@ public class Degree {
     @Column(name = "awarded_at", nullable = false, updatable = false)
     private LocalDateTime awardedAt;
 
+    /**
+     * Ensures that the {@code awardedAt} field does not have a null value.
+     */
     @PrePersist
     protected void onCreate() {
         if(awardedAt == null)
             awardedAt = LocalDateTime.now();
-    }
-
-    public void copyFrom(Degree other) {
-        this.person = other.person;
-        this.title = other.title;
-        this.institution = other.institution;
-        this.graduationYear = other.graduationYear;
     }
 
     public Integer getDegreeId() {

@@ -5,6 +5,12 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represents a historical record for a {@link Household}.
+ * <p>
+ * The {@code householdId} column represents the household for which a change occured,
+ * while the {@code householdSk} column is the primary key and counts all changes ever.
+ */
 @Entity
 @Table(name = "DimHouseholds")
 public class DimHousehold {
@@ -39,6 +45,10 @@ public class DimHousehold {
 
     public DimHousehold() {}
 
+    /**
+     * Copies all fields from the given {@link Household} entity.
+     * @param other the Household entity to copy from
+     */
     public void copyFrom(Household other) {
         this.householdId = other.getHouseholdId();
         this.address = other.getAddress();
@@ -67,85 +77,38 @@ public class DimHousehold {
     }
 
     public String getAddress() { return address; }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public BigDecimal getSurface() {
         return surface;
     }
-    public void setSurface(BigDecimal surface) {
-        this.surface = surface;
-    }
-
     public Integer getCattle() {
         return cattle;
     }
-    public void setCattle(Integer cattle) {
-        this.cattle = cattle;
-    }
-
     public Integer getSwine() {
         return swine;
     }
-    public void setSwine(Integer swine) {
-        this.swine = swine;
-    }
-
     public Integer getSheep() {
         return sheep;
     }
-    public void setSheep(Integer sheep) {
-        this.sheep = sheep;
-    }
-
     public Integer getGoats() {
         return goats;
     }
-    public void setGoats(Integer goats) {
-        this.goats = goats;
-    }
-
     public Integer getEquines() {
         return equines;
     }
-    public void setEquines(Integer equines) {
-        this.equines = equines;
-    }
-
     public Integer getPoultry() {
         return poultry;
     }
-    public void setPoultry(Integer poultry) {
-        this.poultry = poultry;
-    }
-
     public Integer getRabbits() {
         return rabbits;
     }
-    public void setRabbits(Integer rabbits) {
-        this.rabbits = rabbits;
-    }
-
     public Integer getDonkeys() {
         return donkeys;
     }
-    public void setDonkeys(Integer donkeys) {
-        this.donkeys = donkeys;
-    }
-
     public Integer getBeeFamilies() {
         return beeFamilies;
     }
-    public void setBeeFamilies(Integer beeFamilies) {
-        this.beeFamilies = beeFamilies;
-    }
-
     public Integer getOtherAnimals() {
         return otherAnimals;
-    }
-    public void setOtherAnimals(Integer otherAnimals) {
-        this.otherAnimals = otherAnimals;
     }
 
     public LocalDateTime getValidFrom() {

@@ -18,6 +18,8 @@ Se solicita un sistem de management al datelor a mai multor gospodarii taranesti
 * adaugarea unui sistem de logare
 * ID-urile in tabelele temporale pot arata catre gospodarii sau oameni inexistenti
 * starea diplomelor nu poate fi vizualizata in inregistrari din trecut
+* pentru clasele de servicii, ar fi bine ca exceptiile sa fie tratate intr-un singur loc, nu in fiecare metoda
+* CNP-urile persoanelor trebuie sa fie unice
 
 ## Arhitectura
 Aplicatia foloseste arhitectura MVCS (Model-View-Controller-Service).

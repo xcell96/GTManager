@@ -74,7 +74,7 @@ class DegreeRepositoryTest {
         dimRepo.save(dp);
 
         Degree d = new Degree();
-        d.setPerson(dp);
+//        d.setPerson(dp);
         d.setTitle("Master - Mechanical Engineering");
         d.setInstitution("UP Timisoara");
         d.setGraduationYear(2020);
