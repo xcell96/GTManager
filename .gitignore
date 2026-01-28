@@ -87,3 +87,6 @@ resources/*.drawio
 # Environment
 .env
 *.env
+
+# Custom
+docs/
