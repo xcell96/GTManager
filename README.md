@@ -47,9 +47,7 @@ Controlerii sunt responsabili pentru a gestiona cererile HTTP. Solicita date de 
 Pagini simple HTML decorate cu CSS. Datele solicitate sunt injectate cu Thymeleaf.
 
 ### Schema bazei de date
-```
-WIP
-```
+![gtmanager.png](gtmanager.png)
 
 ## Functionalitati/Exemple utilizare
 \-
