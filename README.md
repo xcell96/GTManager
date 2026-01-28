@@ -21,6 +21,10 @@ Se solicita un sistem de management al datelor a mai multor gospodarii taranesti
 * pentru clasele de servicii, ar fi bine ca exceptiile sa fie tratate intr-un singur loc, nu in fiecare metoda
 * CNP-urile persoanelor trebuie sa fie unice
 
+* entitatile pentru date istorice pot (posibil) mosteni entitatile pentru date curente
+* este posibila abstractizarea controllerelor la un singur model
+* implementarea propriilor clase de exceptii
+
 ## Arhitectura
 Aplicatia foloseste arhitectura MVCS (Model-View-Controller-Service).
 
