@@ -60,8 +60,36 @@
     </div>
   </div>
 
+  <!-- History Search Form -->
   <div class="card">
     <h2 style="margin: 0 0 12px;">History</h2>
+    
+    <!-- Search Form -->
+    <div class="history-search">
+      <h4>Filter History by Time Interval</h4>
+      <form th:action="@{/people/{id}(id=${person.personId})}" method="get" class="search-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fromDate">From Date:</label>
+            <input type="datetime-local" id="fromDate" name="fromDate" 
+                   th:value="${currentFromDate != null ? #temporals.format(currentFromDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+          </div>
+          
+          <div class="form-group">
+            <label for="toDate">To Date:</label>
+            <input type="datetime-local" id="toDate" name="toDate" 
+                   th:value="${currentToDate != null ? #temporals.format(currentToDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+          </div>
+          
+          <div class="form-group">
+            <div class="button-group">
+              <button type="submit" class="btn">Filter History</button>
+              <a th:href="@{/people/{id}(id=${person.personId})}" class="btn">Clear</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
     <div class="table-wrap">
       <table style="min-width: 1100px;">
@@ -82,12 +110,12 @@
         </tr>
 
         <tr th:each="h : ${history}">
-          <td th:text="${h.validFrom}"></td>
-          <td th:text="${h.validTo}"></td>
+          <td th:text="${#temporals.format(h.validFrom, 'dd/MM/yyyy HH:mm')}"></td>
+          <td th:text="${h.validTo != null ? #temporals.format(h.validTo, 'dd/MM/yyyy HH:mm') : 'Current'}"></td>
           <td th:text="${h.firstName}"></td>
           <td th:text="${h.lastName}"></td>
           <td th:text="${h.sex}"></td>
-          <td th:text="${h.dateOfBirth}"></td>
+          <td th:text="${#temporals.format(h.dateOfBirth, 'dd/MM/yyyy')}"></td>
           <td th:text="${h.citizenship}"></td>
           <td class="cell-num" th:text="${h.CNP}"></td>
           <td th:text="${h.kinship}"></td>
@@ -98,7 +126,7 @@
         </tr>
 
         <tr th:if="${#lists.isEmpty(history)}">
-          <td colspan="12" class="muted">No history records found for this person.</td>
+          <td colspan="13" class="muted">No history records found for the specified criteria.</td>
         </tr>
       </table>
     </div>

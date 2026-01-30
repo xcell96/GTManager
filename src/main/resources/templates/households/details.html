@@ -58,8 +58,36 @@
         </div>
     </div>
 
+    <!-- History Search Form -->
     <div class="card" style="margin-top: 16px;">
         <h2 style="margin: 0 0 12px;">History</h2>
+        
+        <!-- Search Form -->
+        <div class="history-search">
+            <h4>Filter History by Time Interval</h4>
+            <form th:action="@{/households/{id}(id=${household.householdId})}" method="get" class="search-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fromDate">From Date:</label>
+                        <input type="datetime-local" id="fromDate" name="fromDate" 
+                               th:value="${currentFromDate != null ? #temporals.format(currentFromDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="toDate">To Date:</label>
+                        <input type="datetime-local" id="toDate" name="toDate" 
+                               th:value="${currentToDate != null ? #temporals.format(currentToDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="button-group">
+                            <button type="submit" class="btn">Filter History</button>
+                            <a th:href="@{/households/{id}(id=${household.householdId})}" class="btn">Clear</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <div class="table-wrap">
             <table style="min-width: 980px;">
@@ -81,8 +109,8 @@
                 </tr>
 
                 <tr th:each="h : ${history}">
-                    <td th:text="${h.validFrom}"></td>
-                    <td th:text="${h.validTo}"></td>
+                    <td th:text="${#temporals.format(h.validFrom, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${h.validTo != null ? #temporals.format(h.validTo, 'dd/MM/yyyy HH:mm') : 'Current'}"></td>
                     <td th:text="${h.address}"></td>
                     <td class="cell-num" th:text="${h.surface}"></td>
                     <td class="cell-num" th:text="${h.cattle}"></td>
@@ -98,7 +126,7 @@
                 </tr>
 
                 <tr th:if="${#lists.isEmpty(history)}">
-                    <td colspan="14" class="muted">No history records found for this household.</td>
+                    <td colspan="14" class="muted">No history records found for the specified criteria.</td>
                 </tr>
             </table>
         </div>

@@ -3,9 +3,12 @@ package com.xcell.GTManager.controller;
 import com.xcell.GTManager.dto.HouseholdDto;
 import com.xcell.GTManager.model.services.HouseholdService;
 import com.xcell.GTManager.model.tables.Household;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * REST controller responsible for managing the {@link Household} table.
@@ -106,21 +109,33 @@ public class HouseholdController {
     }
 
     /**
-     * Displays details for a specific household record.
+     * Displays details for a specific household record with optional history filtering.
      * <p>
      * In addition to usual records, the details contain the household's member count, a list of members
-     * and the list of historical records bound to that specific household.
+     * and the list of historical records bound to that specific household (optionally filtered by date).
      *
      * @param id the id of the household record to display details for
+     * @param fromDate optional start date for filtering history (format: yyyy-MM-ddTHH:mm)
+     * @param toDate optional end date for filtering history (format: yyyy-MM-ddTHH:mm)
      * @param model the model used to pass data to the view
      * @return the name of the view to populate
      */
     @GetMapping("/{id}")
-    public String details(@PathVariable Integer id, Model model){
+    public String details(
+            @PathVariable Integer id,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
+            Model model
+    ){
         model.addAttribute("household", householdService.getCurrent(id));
         model.addAttribute("memberCount", householdService.getMemberCount(id));
         model.addAttribute("members", householdService.getMembers(id));
-        model.addAttribute("history", householdService.getHistory(id));
+        model.addAttribute("history", householdService.getHistoryByDateRange(id, fromDate, toDate));
+
+        // Add current filter values to maintain them in the form
+        model.addAttribute("currentFromDate", fromDate);
+        model.addAttribute("currentToDate", toDate);
+
         return "households/details";
     }
 }

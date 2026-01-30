@@ -26,11 +26,53 @@
     </div>
   </div>
 
+  <!-- Search Form -->
+  <div class="card">
+    <h3>Search by Time Interval</h3>
+    <form th:action="@{/dimpeople}" method="get" class="search-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fromDate">From Date:</label>
+          <input type="datetime-local" id="fromDate" name="fromDate" 
+                 th:value="${currentFromDate != null ? #temporals.format(currentFromDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+        </div>
+        
+        <div class="form-group">
+          <label for="toDate">To Date:</label>
+          <input type="datetime-local" id="toDate" name="toDate" 
+                 th:value="${currentToDate != null ? #temporals.format(currentToDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+        </div>
+        
+        <div class="form-group">
+          <label for="personId">Person ID:</label>
+          <input type="number" id="personId" name="personId" 
+                 th:value="${currentPersonId}" />
+        </div>
+        
+        <div class="form-group">
+          <label for="householdId">Household ID:</label>
+          <input type="number" id="householdId" name="householdId" 
+                 th:value="${currentHouseholdId}" />
+        </div>
+        
+        <div class="form-group">
+          <div class="button-group">
+            <button type="submit" class="btn">Search</button>
+            <a th:href="@{/dimpeople}" class="btn">Clear</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Results -->
   <div class="card">
     <div class="table-wrap">
       <table>
         <tr>
           <th>SK</th>
+          <th>As of</th>
+          <th>Until</th>
           <th>ID</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -38,7 +80,7 @@
           <th>Date of Birth</th>
           <th>Citizenship</th>
           <th>CNP</th>
-          <th>Household ID</th>
+          <th>Household SK</th>
           <th>Kinship</th>
           <th>Education</th>
           <th>Job</th>
@@ -47,13 +89,15 @@
 
         <tr th:each="p : ${dimpeople}">
           <td class="cell-num" th:text="${p.personSk}"></td>
+          <td th:text="${#temporals.format(p.validFrom, 'dd/MM/yyyy HH:mm')}"></td>
+          <td th:text="${p.validTo != null ? #temporals.format(p.validTo, 'dd/MM/yyyy HH:mm') : 'Current'}"></td>
           <td>
             <a th:href="@{/people/{id}(id=${p.personId})}" th:text="${p.personId}"></a>
           </td>
           <td th:text="${p.firstName}"></td>
           <td th:text="${p.lastName}"></td>
           <td th:text="${p.sex}"></td>
-          <td th:text="${p.dateOfBirth}"></td>
+          <td th:text="${#temporals.format(p.dateOfBirth, 'dd/MM/yyyy')}"></td>
           <td th:text="${p.citizenship}"></td>
           <td class="cell-num" th:text="${p.CNP}"></td>
           <td class="cell-num" th:text="${p.householdSk}"></td>
@@ -64,7 +108,7 @@
         </tr>
 
         <tr th:if="${#lists.isEmpty(dimpeople)}">
-          <td colspan="13" class="muted">No people found.</td>
+          <td colspan="15" class="muted">No people records found for the specified criteria.</td>
         </tr>
       </table>
     </div>

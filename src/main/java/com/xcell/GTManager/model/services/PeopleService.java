@@ -184,20 +184,40 @@ public class PeopleService {
     }
 
     /**
-     * Retrieves all historical records for a person with the given ID.
-     * <p>
-     * The person must already exist in the database.
-     *
+     * Retrieves historical records for a person with the given ID filtered by date range.
      * @param id the ID of the person to retrieve historical records for
-     * @return a list of historical records for the person
+     * @param fromDate optional start date for filtering
+     * @param toDate optional end date for filtering
+     * @return a list of filtered historical records for the person
      * @throws IllegalArgumentException if the person with the given ID doesn't exist
      */
-    public List<PersonHistoryDto> getHistory(Integer id) throws IllegalArgumentException {
-        if(!personRepo.existsById(id))
-            throw new IllegalArgumentException("Person with ID " + id + " doesn't exist");
+    public List<PersonHistoryDto> getHistoryByDateRange(Integer id, LocalDateTime fromDate, LocalDateTime toDate) throws IllegalArgumentException {
+        if (!personRepo.existsById(id))
+            throw new IllegalArgumentException("Person with ID " + id + " not found");
 
-        return dimRepo.findByPersonIdOrderByValidFromDesc(id).stream()
+        List<DimPerson> results;
+        
+        if (fromDate != null && toDate != null) {
+            // Filter by date range
+            results = dimRepo.findByPersonIdAndDateRange(id, fromDate, toDate);
+        } else if (fromDate != null) {
+            // Filter from a specific date onwards
+            results = dimRepo.findByPersonIdOrderByValidFromDesc(id).stream()
+                    .filter(p -> !p.getValidFrom().isBefore(fromDate))
+                    .toList();
+        } else if (toDate != null) {
+            // Filter up to specific date
+            results = dimRepo.findByPersonIdOrderByValidFromDesc(id).stream()
+                    .filter(p -> p.getValidFrom().isBefore(toDate.plusSeconds(1)))
+                    .toList();
+        } else {
+            // No filters - return all
+            results = dimRepo.findByPersonIdOrderByValidFromDesc(id);
+        }
+        
+        return results.stream()
                 .map(PersonHistoryDto::fromEntity)
+                .sorted((p1, p2) -> p2.validFrom.compareTo(p1.validFrom))
                 .toList();
     }
 }

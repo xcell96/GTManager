@@ -8,9 +8,12 @@ import com.xcell.GTManager.model.services.DegreeService;
 import com.xcell.GTManager.model.services.HouseholdService;
 import com.xcell.GTManager.model.services.PeopleService;
 import com.xcell.GTManager.model.tables.Degree;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * REST controller responsible for managing the People table ({@link com.xcell.GTManager.model.tables.Person}).
@@ -133,19 +136,32 @@ public class PeopleController {
     }
 
     /**
-     * Displays a detailed view of a single record in the People table.
+     * Displays a detailed view of a single record in the People table with optional history filtering.
      * <p>
-     * The detailed view includes the degrees a person holds and the historical records of the person.
+     * The detailed view includes the degrees a person holds and the historical records of the person
+     * (optionally filtered by date).
      *
      * @param id the id of the record to display details for
+     * @param fromDate optional start date for filtering history (format: yyyy-MM-ddTHH:mm)
+     * @param toDate optional end date for filtering history (format: yyyy-MM-ddTHH:mm)
      * @param model the model used to pass data to the view
      * @return the name of the view to populate
      */
     @GetMapping("/{id}")
-    public String details(@PathVariable Integer id, Model model){
+    public String details(
+            @PathVariable Integer id,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
+            Model model
+    ){
         model.addAttribute("person", peopleService.getCurrent(id));
-        model.addAttribute("history", peopleService.getHistory(id));
         model.addAttribute("degrees", degreeService.getForPerson(id));
+        model.addAttribute("history", peopleService.getHistoryByDateRange(id, fromDate, toDate));
+
+        // Add current filter values to maintain them in the form
+        model.addAttribute("currentFromDate", fromDate);
+        model.addAttribute("currentToDate", toDate);
+
         return "people/details";
     }
 

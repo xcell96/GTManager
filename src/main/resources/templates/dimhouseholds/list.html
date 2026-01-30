@@ -27,6 +27,42 @@
     </div>
 
     <div class="card">
+        <h3>Search by Time Interval</h3>
+        <form th:action="@{/dimhouseholds}" method="get" class="search-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fromDate">From Date:</label>
+                    <input type="datetime-local" id="fromDate" name="fromDate"
+                           th:value="${currentFromDate != null ? #temporals.format(currentFromDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+                </div>
+
+                <div class="form-group">
+                    <label for="toDate">To Date:</label>
+                    <input type="datetime-local" id="toDate" name="toDate"
+                            th:value="${currentToDate != null ? #temporals.format(currentToDate, 'yyyy-MM-dd''T''HH:mm') : ''}" />
+                </div>
+
+                <div class="form-group">
+                    <label for="householdId">Household ID:</label>
+                    <input type="number" id="householdId" name="householdId"
+                           th:value="${currentHouseholdId}" />
+                </div>
+
+                <div class="form-group">
+                    <div class="button-group">
+                        <button type="submit" class="btn">Search</button>
+                        <a th:href="@{/dimhouseholds}" class="btn">Clear</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="card">
+        <div th:if="${pointInTime}" class="search-info">
+            <p><strong>Showing households active at:</strong> <span th:text="${#temporals.format(pointInTime, 'dd/MM/yyyy HH:mm')}"></span></p>
+        </div>
+
         <div class="table-wrap">
             <table>
                 <tr>
@@ -51,8 +87,8 @@
 
                 <tr th:each="h : ${dimhouseholds}">
                     <td class="cell-num" th:text="${h.householdSk}"></td>
-                    <td th:text="${h.validFrom}"></td>
-                    <td th:text="${h.validTo}"></td>
+                    <td th:text="${#temporals.format(h.validFrom, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${h.validTo != null ? #temporals.format(h.validTo, 'dd/MM/yyyy HH:mm') : 'Current'}"></td>
                     <td>
                         <a th:href="@{/households/{id}(id=${h.householdId})}" th:text="${h.householdId}"></a>
                     </td>
@@ -73,6 +109,10 @@
                     </td>
                 </tr>
             </table>
+
+            <div th:if="${#lists.isEmpty(dimhouseholds)}" class="no-results">
+                <p>No household records found for the specified criteria.</p>
+            </div>
         </div>
     </div>
 </div>

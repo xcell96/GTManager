@@ -145,18 +145,40 @@ public class HouseholdService {
     }
 
     /**
-     * Retrieves all historical records for a household with the given ID.
+     * Retrieves historical records for a household with the given ID filtered by time interval.
      * @param id the ID of the household to retrieve historical records for
-     * @return a list of historical records for the household
+     * @param fromDate optional start date for filtering
+     * @param toDate optional end date for filtering
+     * @return a filtered list of historical records for the household
      * @throws IllegalArgumentException if the household with the given ID doesn't exist
      */
-    public List<HouseholdHistoryDto> getHistory(Integer id) throws IllegalArgumentException {
-        if(!householdRepo.existsById(id))
-            throw new IllegalArgumentException("Household with ID " + id + " doesn't exist");
+    public List<HouseholdHistoryDto> getHistoryByDateRange(Integer id, LocalDateTime fromDate, LocalDateTime toDate) throws IllegalArgumentException {
+        if (!householdRepo.existsById(id))
+            throw new IllegalArgumentException("Household with ID " + id + " does not exist.");
 
-        return dimRepo.findAll().stream()
-                .filter(d -> d.getHouseholdId().equals(id))
+        List<DimHousehold> results;
+
+        if (fromDate != null && toDate != null) {
+            // Search by date range
+            results = dimRepo.findByHouseholdIdAndDateRange(id, fromDate, toDate);
+        } else if (fromDate != null) {
+            // Search from a specific date onwards
+            results = dimRepo.findByHouseholdIdOrderByValidFromDesc(id).stream()
+                    .filter(h -> !h.getValidFrom().isBefore(fromDate))
+                    .toList();
+        } else if (toDate != null) {
+            // Search up to a specific date
+            results = dimRepo.findByHouseholdIdOrderByValidFromDesc(id).stream()
+                    .filter(h -> h.getValidFrom().isBefore(toDate.plusSeconds(1)))
+                    .toList();
+        } else {
+            // No filters - return all
+            results = dimRepo.findByHouseholdIdOrderByValidFromDesc(id);
+        }
+
+        return results.stream()
                 .map(HouseholdHistoryDto::fromEntity)
+                .sorted((h1, h2) -> h2.validFrom.compareTo(h1.validFrom))
                 .toList();
     }
 
