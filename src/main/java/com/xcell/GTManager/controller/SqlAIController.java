@@ -13,18 +13,49 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * REST controller that exposes an AI-assisted interface for generating
+ * SQL queries based on natural language prompts.
+ * <p>
+ * The controller extracts database schema metadata at runtime and
+ * provides it as contextual input to an AI service, which produces
+ * SQL statements asynchronously.
+ */
 @RestController
 @RequestMapping("/sqlquery/ai")
 public class SqlAIController {
 
+    /**
+     * JDBC template used to retrieve database schema metadata.
+     */
     private final JdbcTemplate jdbcTemplate;
+
+    /**
+     * Service responsible for generating SQL queries using AI.
+     */
     private final SqlAIService sqlAiService;
 
+    /**
+     * Creates a new {@code SqlAIController} with the required dependencies.
+     *
+     * @param jdbcTemplate the JDBC template used for database access
+     * @param sqlAiService the AI service used to generate SQL queries
+     */
     public SqlAIController(JdbcTemplate jdbcTemplate, SqlAIService sqlAiService) {
         this.jdbcTemplate = jdbcTemplate;
         this.sqlAiService = sqlAiService;
     }
 
+    /**
+     * Processes a chat-style request containing a natural language prompt
+     * and returns an AI-generated SQL query.
+     * <p>
+     * The database schema is dynamically introspected and formatted before
+     * being passed to the AI service as contextual information.
+     *
+     * @param body the request body containing the user prompt
+     * @return a future containing the generated SQL query wrapped in a response map
+     */
     @PostMapping("/chat")
     public CompletableFuture<Map<String, String>> chat(@RequestBody Map<String, String> body) {
         String message = body.get("message");
@@ -45,6 +76,13 @@ public class SqlAIController {
                 .thenApply(sql -> Map.of("reply", sql));
     }
 
+    /**
+     * Formats database schema metadata into a compact, human-readable form
+     * suitable for use as contextual input to an AI model.
+     *
+     * @param rows the raw schema metadata retrieved from the database
+     * @return a formatted schema description string
+     */
     private String formatSchema(List<Map<String, Object>> rows) {
         Map<String, StringJoiner> tables = new LinkedHashMap<>();
 

@@ -15,26 +15,57 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Controller for executing manual SQL queries.
- * Provides endpoints for displaying the SQL query page and executing queries.
+ * Spring MVC controller that exposes a web interface for executing
+ * manually entered SQL queries against the configured data source.
+ * <p>
+ * This controller only allows execution of single, read-only SQL
+ * statements (SELECT or DESC) and enforces a maximum row limit to
+ * prevent excessive result sizes.
  */
 @Controller
 @RequestMapping("/sqlquery")
 public class SqlQueryController {
 
+    /**
+     * Maximum number of rows that may be returned by a query execution.
+     */
     private static final int MAX_ROWS = 500;
 
+    /**
+     * JDBC template used to execute SQL queries.
+     */
     private final JdbcTemplate jdbcTemplate;
 
+    /**
+     * Creates a new {@code SqlQueryController} with the given JDBC template.
+     *
+     * @param jdbcTemplate the JDBC template used for database access
+     */
     public SqlQueryController(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Displays the SQL query input page.
+     *
+     * @return the name of the SQL query view
+     */
     @GetMapping
     public String sqlQueryPage() {
         return "sqlquery";
     }
 
+    /**
+     * Executes a user-provided SQL query after validation and safety checks.
+     * <p>
+     * Only single SELECT-like statements are permitted. Query results,
+     * column names, and execution metadata are added to the model for
+     * rendering in the view.
+     *
+     * @param query the SQL query entered by the user
+     * @param model the model used to pass attributes to the view
+     * @return the name of the SQL query view
+     */
     @PostMapping("/execute")
     public String executeSqlQuery(@RequestParam("query") String query, Model model) {
         model.addAttribute("query", query);
@@ -82,6 +113,15 @@ public class SqlQueryController {
         return "sqlquery";
     }
 
+    /**
+     * Determines whether the given SQL statement is a safe, read-only query.
+     * <p>
+     * A query is considered safe if it is a single SELECT or DESC statement
+     * and does not contain disallowed keywords or multiple statements.
+     *
+     * @param sql the SQL statement to validate
+     * @return {@code true} if the statement is considered safe; {@code false} otherwise
+     */
     private boolean isSafeSelect(String sql) {
         String upper = sql.toUpperCase(Locale.ROOT);
 
