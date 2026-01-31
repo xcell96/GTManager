@@ -18,13 +18,19 @@ public class SqlAIService {
     @Value("${ai.provider.url}")
     private String apiUrl;
 
+    @Value("${ai.bot.persona}")
+    private String persona;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Async
-    public CompletableFuture<String> generateAsync() {
+    public CompletableFuture<String> generateAsync(String prompt, String schema) {
         try {
+            String fullPrompt = persona + "\n\n" + prompt + "\n\nSchema:\n" + schema;
+            System.out.println(fullPrompt);
+
             String payload = objectMapper.writeValueAsString(
-                    new AiRequest("qwen2.5-coder:1.5b", "Give me a SQL query for all households.", 200)
+                    new AiRequest("qwen2.5-coder:1.5b", fullPrompt, 1000000)
             );
 
             HttpRequest request = HttpRequest.newBuilder()

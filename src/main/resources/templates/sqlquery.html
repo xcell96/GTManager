@@ -67,6 +67,17 @@
             flex-direction: column;
             gap: 8px;
         }
+        #ai-chat pre {
+            margin: 8px 0 0;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        #ai-chat code {
+            font-family: monospace;
+            white-space: pre;
+        }
     </style>
 </head>
 <body>
@@ -149,46 +160,64 @@
 </div>
 </body>
 
-    <script th:inline="javascript">
-        let lastSql = '';
+        <script th:inline="javascript">
+            let lastSql = '';
 
-        async function sendAi() {
-            const chat = document.getElementById('ai-chat');
-
-            const loadingDiv = document.createElement('div');
-            loadingDiv.className = 'ai-msg ai-bot';
-            loadingDiv.textContent = 'AI is thinking...';
-            chat.appendChild(loadingDiv);
-            chat.scrollTop = chat.scrollHeight;
-
-            const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
-            const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-
-            const headers = { 'Content-Type': 'application/json' };
-            if (csrfToken && csrfHeader) {
-                headers[csrfHeader] = csrfToken;
+            function escapeHtml(text) {
+                return text
+                    .replaceAll('&', '&amp;')
+                    .replaceAll('<', '&lt;')
+                    .replaceAll('>', '&gt;');
             }
 
-            try {
-                const res = await fetch('/sqlquery/ai/chat', {
-                    method: 'POST',
-                    headers
+            function formatMessage(raw) {
+                const escaped = escapeHtml(raw);
+                return escaped.replace(/```([\s\S]*?)```/g, (_, code) => {
+                    return `<pre><code>${code.trim()}</code></pre>`;
                 });
+            }
 
-                if (!res.ok) {
-                    loadingDiv.textContent = `Error contacting AI (HTTP ${res.status})`;
-                    return;
+            async function sendAi() {
+                const input = document.getElementById('ai-input');
+                const chat = document.getElementById('ai-chat');
+                const text = input.value.trim();
+                if (!text) return;
+
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'ai-msg ai-bot';
+                loadingDiv.textContent = 'AI is thinking...';
+                chat.appendChild(loadingDiv);
+                chat.scrollTop = chat.scrollHeight;
+
+                const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+                const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+
+                const headers = { 'Content-Type': 'application/json' };
+                if (csrfToken && csrfHeader) {
+                    headers[csrfHeader] = csrfToken;
                 }
 
-                const data = await res.json();
-                lastSql = data.reply ?? '';
+                try {
+                    const res = await fetch('/sqlquery/ai/chat', {
+                        method: 'POST',
+                        headers,
+                        body: JSON.stringify({ message: text })
+                    });
 
-                loadingDiv.textContent = data.reply ?? 'No reply';
-                chat.scrollTop = chat.scrollHeight;
-            } catch (err) {
-                loadingDiv.textContent = 'Error contacting AI';
+                    if (!res.ok) {
+                        loadingDiv.textContent = `Error contacting AI (HTTP ${res.status})`;
+                        return;
+                    }
+
+                    const data = await res.json();
+                    lastSql = data.reply ?? '';
+
+                    loadingDiv.innerHTML = formatMessage(data.reply ?? 'No reply');
+                    chat.scrollTop = chat.scrollHeight;
+                } catch (err) {
+                    loadingDiv.textContent = 'Error contacting AI';
+                }
             }
-        }
-    </script>
+        </script>
 
 </html>

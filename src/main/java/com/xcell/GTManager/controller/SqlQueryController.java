@@ -85,7 +85,7 @@ public class SqlQueryController {
     private boolean isSafeSelect(String sql) {
         String upper = sql.toUpperCase(Locale.ROOT);
 
-        if (!upper.startsWith("SELECT")) {
+        if (!(upper.startsWith("SELECT") || upper.startsWith("DESC"))) {
             return false;
         }
 
