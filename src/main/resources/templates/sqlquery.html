@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
+    <title>GTManager - SQL Query</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <style>
+        .query-container {
+            margin-bottom: 24px;
+        }
+        textarea {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            font-family: monospace;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .button-group {
+            margin-top: 12px;
+        }
+        .btn-execute {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-execute:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .results-container {
+            margin-top: 24px;
+            overflow-x: auto;
+        }
+        .row-count {
+            margin-top: 12px;
+            font-weight: 500;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <div class="toolbar">
+        <div>
+            <h1>GTManager</h1>
+            <p>SQL Query</p>
+        </div>
+        <div class="actions">
+            <a class="btn" th:href="@{/}">Home</a>
+            <a class="btn" th:href="@{/account}">Account</a>
+            <form class="inline" th:action="@{/logout}" method="post">
+                <button class="btn" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card query-container">
+            <h2>Execute SQL Query</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 12px;">
+                <strong>Note:</strong> Only SELECT queries are allowed for security reasons.
+            </p>
+
+            <form th:action="@{/sqlquery/execute}" method="post">
+                <label>
+                    <textarea name="query" placeholder="Enter your SQL SELECT query here..." th:text="${query}"></textarea>
+                </label>
+                <div class="button-group">
+                    <button type="submit" class="btn-execute">Execute Query</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Error Message -->
+        <div th:if="${error}" class="alert alert-error">
+            <strong>Error:</strong> <span th:text="${error}"></span>
+        </div>
+
+        <!-- Success Message -->
+        <div th:if="${message}" class="alert alert-success">
+            <span th:text="${message}"></span>
+        </div>
+
+        <!-- Query Results -->
+        <div th:if="${results}" class="card results-container">
+            <h3>Query Results</h3>
+            <table th:if="${!results.isEmpty()}">
+                <thead>
+                <tr>
+                    <th th:each="column : ${columnNames}" th:text="${column}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="row : ${results}">
+                    <td th:each="column : ${columnNames}">
+                        <span th:text="${row[column.toString()] != null ? row[column.toString()] : 'NULL'}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row-count" th:text="'Total rows: ' + ${rowCount}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
