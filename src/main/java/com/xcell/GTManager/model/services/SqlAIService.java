@@ -30,7 +30,7 @@ public class SqlAIService {
             System.out.println(fullPrompt);
 
             String payload = objectMapper.writeValueAsString(
-                    new AiRequest("qwen2.5-coder:1.5b", fullPrompt, 1000000)
+                    new AiRequest("gemma3", fullPrompt, 1000000)
             );
 
             HttpRequest request = HttpRequest.newBuilder()

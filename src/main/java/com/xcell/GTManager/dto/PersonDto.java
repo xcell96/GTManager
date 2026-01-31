@@ -6,6 +6,7 @@ import com.xcell.GTManager.enums.ESex;
 import com.xcell.GTManager.model.tables.Person;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * A Data Transfer Object for the {@link Person} entity.
@@ -76,4 +77,64 @@ public class PersonDto {
     public String getJob() { return job; }
     public String getPlaceOfWork() { return placeOfWork; }
     public Integer getDegreesCount() { return degreesCount; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDto personDto = (PersonDto) o;
+        return Objects.equals(personId, personDto.personId) && Objects.equals(firstName, personDto.firstName) && Objects.equals(lastName, personDto.lastName) && sex == personDto.sex && Objects.equals(dateOfBirth, personDto.dateOfBirth) && Objects.equals(CNP, personDto.CNP) && Objects.equals(citizenship, personDto.citizenship) && Objects.equals(householdId, personDto.householdId) && kinship == personDto.kinship && educationLevel == personDto.educationLevel && Objects.equals(job, personDto.job) && Objects.equals(placeOfWork, personDto.placeOfWork) && Objects.equals(degreesCount, personDto.degreesCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personId, firstName, lastName, sex, dateOfBirth, CNP, citizenship, householdId, kinship, educationLevel, job, placeOfWork, degreesCount);
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setSex(ESex sex) {
+        this.sex = sex;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setCNP(String CNP) {
+        this.CNP = CNP;
+    }
+
+    public void setCitizenship(String citizenship) {
+        this.citizenship = citizenship;
+    }
+
+    public void setHouseholdId(Integer householdId) {
+        this.householdId = householdId;
+    }
+
+    public void setKinship(EKinship kinship) {
+        this.kinship = kinship;
+    }
+
+    public void setEducationLevel(EEducationLevel educationLevel) {
+        this.educationLevel = educationLevel;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public void setPlaceOfWork(String placeOfWork) {
+        this.placeOfWork = placeOfWork;
+    }
 }
