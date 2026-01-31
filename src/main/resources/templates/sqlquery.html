@@ -6,6 +6,8 @@
     <link rel="icon" type="image/x-icon" th:href="@{/favicon.png}">
     <title>GTManager - SQL Query</title>
     <link rel="stylesheet" th:href="@{/css/app.css}">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <style>
         .query-container {
             margin-bottom: 24px;
@@ -60,6 +62,11 @@
             font-weight: 500;
             color: #666;
         }
+        #ai-chat {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +102,20 @@
             </form>
         </div>
 
+        <div class="card">
+            <h2>AI SQL Helper</h2>
+
+            <div id="ai-chat" style="max-height: 240px; overflow-y: auto; margin-bottom: 12px;"></div>
+
+            <div class="field">
+                <label for="ai-input"></label><input class="input" id="ai-input" placeholder="Ask about your data in plain English">
+            </div>
+
+            <div class="button-group" style="margin-top: 8px;">
+                <button type="button" class="btn btn-primary" onclick="sendAi()">Ask AI</button>
+            </div>
+        </div>
+
         <!-- Error Message -->
         <div th:if="${error}" class="alert alert-error">
             <strong>Error:</strong> <span th:text="${error}"></span>
@@ -127,4 +148,47 @@
     </div>
 </div>
 </body>
+
+    <script th:inline="javascript">
+        let lastSql = '';
+
+        async function sendAi() {
+            const chat = document.getElementById('ai-chat');
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'ai-msg ai-bot';
+            loadingDiv.textContent = 'AI is thinking...';
+            chat.appendChild(loadingDiv);
+            chat.scrollTop = chat.scrollHeight;
+
+            const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+            const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+
+            const headers = { 'Content-Type': 'application/json' };
+            if (csrfToken && csrfHeader) {
+                headers[csrfHeader] = csrfToken;
+            }
+
+            try {
+                const res = await fetch('/sqlquery/ai/chat', {
+                    method: 'POST',
+                    headers
+                });
+
+                if (!res.ok) {
+                    loadingDiv.textContent = `Error contacting AI (HTTP ${res.status})`;
+                    return;
+                }
+
+                const data = await res.json();
+                lastSql = data.reply ?? '';
+
+                loadingDiv.textContent = data.reply ?? 'No reply';
+                chat.scrollTop = chat.scrollHeight;
+            } catch (err) {
+                loadingDiv.textContent = 'Error contacting AI';
+            }
+        }
+    </script>
+
 </html>
